@@ -5,9 +5,15 @@ import { Markdown } from 'components/markdown';
 import { ContextAlert } from 'components/context-alert';
 import { getNetlifyContext } from 'utils';
 import CheckoutForm from 'components/checkout-form';  // Import the new component
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';  // Import Elements
+
+// Load your Stripe publishable key
+const stripePromise = loadStripe('your-publishable-key-here');
 
 const ctx = getNetlifyContext();
 
+// Define contextExplainer
 const contextExplainer = `
 The card below is rendered on the server based on the value of \`process.env.CONTEXT\` 
 ([docs](https://docs.netlify.com/configure-builds/environment-variables/#build-metadata)):
@@ -35,12 +41,15 @@ export default function Page() {
             )}
             <section className="flex flex-col gap-4">
                 <h2>Stripe Checkout Form</h2>
-                <CheckoutForm /> 
+                <Elements stripe={stripePromise}>  {/* Wrap CheckoutForm in Elements */}
+                    <CheckoutForm />
+                </Elements>
             </section>
         </main>
     );
 }
 
+// Define RuntimeContextCard
 function RuntimeContextCard() {
     const title = `Netlify Context: running in ${ctx} mode.`;
 
