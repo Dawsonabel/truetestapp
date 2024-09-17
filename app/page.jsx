@@ -4,7 +4,7 @@ import { RandomQuote } from 'components/random-quote';
 import { Markdown } from 'components/markdown';
 import { ContextAlert } from 'components/context-alert';
 import { getNetlifyContext } from 'utils';
-import CheckoutForm from 'components/CheckoutForm';  // Import the new component
+import CheckoutForm from 'components/checkout-form';  // Import the new component
 
 const ctx = getNetlifyContext();
 
