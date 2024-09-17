@@ -1,11 +1,15 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import stripeModule from 'stripe';
 
-exports.handler = async function(event, context) {
-  const { items } = JSON.parse(event.body);
+// Initialize Stripe with your secret key
+const stripe = stripeModule(process.env.STRIPE_SECRET_KEY);
 
-  const amount = items[0].amount; // Calculate or get the amount dynamically
-
+export async function handler(event, context) {
   try {
+    const { items } = JSON.parse(event.body);
+
+    const amount = items[0].amount;  // Calculate or retrieve the amount dynamically
+
+    // Create a payment intent with the Stripe API
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: 'usd',
@@ -22,4 +26,4 @@ exports.handler = async function(event, context) {
       body: JSON.stringify({ error: error.message }),
     };
   }
-};
+}
