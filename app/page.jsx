@@ -4,29 +4,13 @@ import { RandomQuote } from 'components/random-quote';
 import { Markdown } from 'components/markdown';
 import { ContextAlert } from 'components/context-alert';
 import { getNetlifyContext } from 'utils';
+import { useEffect, useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-const cards = [
-    //{ text: 'Hello', linkText: 'someLink', href: '/' }
-];
+const stripePromise = loadStripe('pk_test_51PnTlpCRGRRpj41jt6hoYVOOw5riyDlKN6tNeMnbfwKXXUb4aYiuxvrsjxn45B7mtV0IXvKj63fWrkKgKSDWXs4700tb7v6mvC');
 
-const contextExplainer = `
-The card below is rendered on the server based on the value of \`process.env.CONTEXT\` 
-([docs](https://docs.netlify.com/configure-builds/environment-variables/#build-metadata)):
-`;
-
-const preDynamicContentExplainer = `
-The card content below is fetched by the client-side from \`/quotes/random\` (see file \`app/quotes/random/route.js\`) with a different quote shown on each page load:
-`;
-
-const postDynamicContentExplainer = `
-On Netlify, Next.js Route Handlers are automatically deployed as [Serverless Functions](https://docs.netlify.com/functions/overview/).
-Alternatively, you can add Serverless Functions to any site regardless of framework, with acccess to the [full context data](https://docs.netlify.com/functions/api/).
-
-And as always with dynamic content, beware of layout shifts & flicker! (here, we aren't...)
-
-this is a test! DOES IT WORK?????
-`;
-
+const cards = [];
 const ctx = getNetlifyContext();
 
 export default function Page() {
@@ -45,17 +29,71 @@ export default function Page() {
             </section>
             {!!ctx && (
                 <section className="flex flex-col gap-4">
-                    <Markdown content={contextExplainer} />
                     <RuntimeContextCard />
                 </section>
             )}
             <section className="flex flex-col gap-4">
-                <Markdown content={preDynamicContentExplainer} />
-                <RandomQuote />
-                <Markdown content={postDynamicContentExplainer} />
+                <h2>Stripe Checkout Form</h2>
+                <Elements stripe={stripePromise}>
+                    <CheckoutForm />
+                </Elements>
             </section>
-            {/* !!cards?.length && <CardsGrid cards={cards} /> */}
         </main>
+    );
+}
+
+function CheckoutForm() {
+    const stripe = useStripe();
+    const elements = useElements();
+    const [clientSecret, setClientSecret] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState(null);
+
+    useEffect(() => {
+        // Call your Netlify serverless function to get the Payment Intent client secret
+        fetch('/.netlify/edge-functions/create-payment-intent.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: [{ id: 'xl-tshirt', amount: 1000 }] }),
+        })
+            .then((res) => res.json())
+            .then((data) => setClientSecret(data.clientSecret));
+    }, []);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        if (!stripe || !elements) return;
+
+        const result = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+                return_url: 'https://trait.netlify.app/revalidation',
+            },
+        });
+
+        if (result.error) {
+            setMessage(result.error.message);
+        } else {
+            setMessage('Payment successful!');
+        }
+
+        setLoading(false);
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            {clientSecret && (
+                <div>
+                    <CardElement />
+                    <button type="submit" disabled={!stripe || loading}>
+                        {loading ? 'Processing...' : 'Pay'}
+                    </button>
+                </div>
+            )}
+            {message && <p>{message}</p>}
+        </form>
     );
 }
 
