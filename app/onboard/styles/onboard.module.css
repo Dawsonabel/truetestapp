@@ -1,0 +1,34 @@
+.onboardContainer {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.onboardBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FDF0E6;
+    z-index: -1;
+}
+
+@media (min-width: 640px) {
+    .onboardContainer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .onboardContainer {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}

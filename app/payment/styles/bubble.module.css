@@ -1,0 +1,39 @@
+/* Bubble Container */
+.bubble-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    margin: 0 0 0 0;
+}
+
+/* Bubble Indicator Row */
+.bubble-indicator {
+    position: relative;
+    width: 120px; /* Make the bubble container larger for centering */
+    height: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Individual Bubble */
+.bubble {
+    width: 10px;
+    height: 10px;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
+/* Highlighted Moving Bubble */
+.bubble-highlight {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #e06e5a;
+    border-radius: 50%;
+    transition: transform 1s ease-out;
+}
+
+.no-transition {
+    transition: none;
+}

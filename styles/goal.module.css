@@ -1,0 +1,31 @@
+.goal-container {
+    margin: 2vh 0 0 0;
+    display: flex;
+    gap: 12px; /* Space between the SVG and the text */
+    align-items: flex-start;
+  }
+  
+  .goal-icon {
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .goal-text p {
+    margin: 0; /* Remove all margins */
+    padding: 0; /* Ensure no padding is added */
+    line-height: 1.1; /* Adjust line height for tighter vertical spacing */
+  }
+  
+  
+  /* .goal-text .text-sm {
+    font-size: 0.875rem;
+  } */
+  
+  .goal-text .text-lg {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  

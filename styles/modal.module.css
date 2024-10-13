@@ -1,0 +1,198 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Background overlay */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Change from center to flex-start */
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    overflow-y: auto; /* Enable scrolling on the overlay */
+}
+
+.modalContent {
+    padding: 2vh 1.5vh;
+    padding-bottom: 2.75vh;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    width: calc(100% - 40px); /* Ensure margin on both sides */
+    max-width: 400px;
+    position: relative;
+    margin: auto; /* Center the content horizontally */
+    /* Remove max-height and overflow-y from here */
+}
+
+.discountOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #faefff; /* ffccb6 f8e9ff */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+}
+
+.customDiscountContent {
+    position: relative;
+    width: calc(100% - 5px); /* Ensure margin on both sides */
+    max-width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    padding: 90px 10px 10px 10px;
+    background-color: transparent; /* Remove background color */
+    text-align: left;
+}
+
+.customDiscountCard {
+    background-color: rgba(255, 255, 255, 0.35); /* Semi-transparent white for the card */
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+    margin-bottom: 8px;
+    width: calc(100% - 20px); 
+    max-width: 400px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.trialButton {
+    background-color: #4ab860;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    border: none;
+    font-size: 1.25rem;
+    font-weight: normal;
+    margin-top: 1rem;
+    width: calc(100% - 40px);
+    max-width: 400px;
+}
+
+.closeButton {
+    position: absolute;
+    top: 9px;
+    left: 20px;
+    font-size: 2.5rem;
+    cursor: pointer;
+    font-weight: 100;
+    color: black;
+    line-height: 1;
+    font-family: Arial, Helvetica, sans-serif; /* Use a font with a thinner 'X' */
+}
+
+.realCloseButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    background: none;
+    border: none;
+}
+
+.discountRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.appliedRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: rgba(155, 71, 194, 0.499);
+    border-radius: 7px;
+    padding: 3px 7px; /* Add some padding to make it look like a bar */
+    margin-bottom: 10px; /* Ensure there is some space between rows */
+}
+
+.discountText {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.discountText .original {
+    color: black; 
+    position: relative;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.discountText .original::before {
+    content: "";
+    position: absolute;
+    top: 50%; 
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: red;
+    transform: translateY(-50%);
+}
+
+.discountText .newPrice {
+    font-weight: 500;
+    font-size: 14px;
+    color: black;
+}
+
+.discountText .originalPrice {
+    font-size: 14px;
+    color: black; 
+    position: relative;
+    margin-right: 5px;
+}
+
+.discountText .originalPrice::before {
+    content: "";
+    position: absolute;
+    top: 50%; 
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: red;
+    transform: translateY(-50%);
+}
+
+.discountText .new {
+    font-weight: 800;
+    color: black;
+}
+
+.discountOverlay::before {
+    content: '🎉';
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    font-size: 6rem;
+    opacity: 0.2;
+}
+
+.discountOverlay::after {
+    content: '🎁';
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+    font-size: 6rem;
+    opacity: 0.2;
+}
+
+.noticeText {
+    max-width: 400px;
+}

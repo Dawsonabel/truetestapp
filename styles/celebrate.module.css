@@ -1,0 +1,69 @@
+@keyframes moveLine {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0px, -30px);
+  } 
+  }
+  
+.up-down {
+  animation: moveLine 1s infinite;
+}
+
+@keyframes moveLine2 {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-10px, -30px);
+  }
+}
+
+.mid-down {
+  animation: moveLine2 1s infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes moveLine3 {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, -30px);
+  }
+}
+
+.mid-downRight {
+  animation: moveLine3 1s infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes moveLine4 {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, -30px);
+  }
+}
+
+.mid-downLowerRight {
+  animation: moveLine4 1s infinite;
+}
+
+@keyframes moveLine5 {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, -30px);
+  }
+}
+
+.mid-downLeft {
+  animation: moveLine5 1s infinite;
+}
+
+
+

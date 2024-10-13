@@ -1,0 +1,166 @@
+.container {
+  overflow: hidden;
+  width: 100%;
+  height: 40px;
+  position: relative;
+}
+
+.choicesContainer {
+  position: relative;
+  height: 2rem; 
+  overflow: hidden;
+}
+
+.choiceItem {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  animation: slideInFromLeft 0.5s ease-out;
+}
+
+.choiceItem:nth-child(1) {
+  left: 0;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.choiceItem:nth-child(2) {
+  left: 100%;
+  opacity: 0.7;
+  transform: translateX(-100%);
+}
+
+.choiceItem:nth-child(3) {
+  left: 200%;
+  opacity: 0.4;
+  transform: translateX(-200%);
+}
+
+.choiceItem:nth-child(n+4) {
+  left: 300%;
+  opacity: 0;
+  transform: translateX(-300%);
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.choiceItem:nth-child(1) {
+  animation: slideLeft 0.5s ease-out;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.choiceItem::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 20px;
+  background: linear-gradient(to left, #ffffff, transparent);
+}
+
+.outerContainer {
+  width: 100%; 
+  margin: 0 auto; 
+  margin-top: 30px;
+  padding: 8px;
+  background-color: #e9b0a72a; 
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.counterContainer {
+  font-size: 15px;
+  font-weight: 500; 
+  color: rgb(213, 84, 64); 
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.choiceContainer {
+  overflow: hidden;
+  width: 75%;
+  height: 30px;
+  position: relative;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.choiceItem {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  animation: slideInFromLeft 0.5s ease-out;
+  padding: 0 10px;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.choiceItem::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 20px;
+  background: linear-gradient(to left, #ffffff, transparent);
+}

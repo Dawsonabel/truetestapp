@@ -1,28 +1,21 @@
-import '../styles/globals.css';
-import { Footer } from '../components/footer';
-import { Header } from '../components/header';
+'use client';
 
-export const metadata = {
-    title: {
-        template: '%s | Netlify',
-        default: 'Netlify Starter'
-    }
-};
+import HamburgerMenu from '../components/hamburgerMenu';
+import '../styles/globals.css'; // Make sure this path is correct for your global styles
+import { usePathname } from 'next/navigation';
 
 export default function RootLayout({ children }) {
+    const pathname = usePathname();
+
+    const noLayoutPaths = ['/offer', '/payment', '/hello', '/onboard'];
+
+    const isNoLayoutPage = noLayoutPaths.includes(pathname);
+
     return (
-        <html lang="en" data-theme="lofi">
-            <head>
-                <link rel="icon" href="/favicon.svg" sizes="any" />
-            </head>
-            <body className="antialiased text-white bg-blue-900">
-                <div className="flex flex-col min-h-screen px-6 bg-grid-pattern sm:px-12">
-                    <div className="flex flex-col w-full max-w-5xl mx-auto grow">
-                        <Header />
-                        <div className="grow">{children}</div>
-                        <Footer />
-                    </div>
-                </div>
+        <html lang="en">
+            <body>
+                {!isNoLayoutPage && <HamburgerMenu />}
+                {children}
             </body>
         </html>
     );

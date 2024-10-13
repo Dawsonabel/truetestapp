@@ -1,0 +1,47 @@
+.form-step {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.encouragement-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.encouragement-subtitle {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.start-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.startButton {
+  width: 250px;
+  padding: 12px 20px;
+  margin-top: 5px;
+  font-size: 1rem;
+  background: linear-gradient(135deg, rgb(225, 120, 105) 60%, rgb(235, 166, 155) 100%, rgb(215, 100, 85) 100%);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  text-shadow: 0 0 1px #8B4513;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
+
+.startButton:hover {
+  background: linear-gradient(135deg, rgb(235, 130, 115) 60%, rgb(245, 176, 165) 100%, rgb(225, 110, 95) 100%);
+}

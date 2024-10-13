@@ -1,0 +1,102 @@
+/* Thinner sticky header button with more padding */
+.header-button {
+    padding: 6px 25px;
+    font-size: 0.9rem;
+    margin-right: 20px;
+    transition: transform 2s ease-in-out;
+    animation: pulse 2s infinite;
+    position: relative;
+}
+
+/* Pulsing effect with no base shadow */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: none; /* No shadow at the original size */
+    }
+    50% {
+        transform: scaleX(1.1) scaleY(1.05); /* More width increase than height */
+        box-shadow: 0 0 1px 3px rgba(5, 150, 105, .5); /* Brighter, more transparent shadow */
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: none; /* No shadow when back to the original size */
+    }
+}
+
+/* Reduce timer size slightly and center content */
+.timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px; /* Add space between numbers and the colon */
+}
+
+/* Colon styling */
+.colon {
+    padding: 0 0px;
+}
+
+/* Timer number styling */
+.timerNumber {
+    font-weight: 800;
+}
+
+/* Flexbox layout for min/sec alignment */
+.timer-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -6px;
+    line-height: 1;
+    width: 50px;
+}
+
+/* Specifically target 'min' and 'sec' */
+.timer-labels span {
+    font-size: 0.6rem;
+}
+
+/* Align 'min' and 'sec' separately without affecting each other */
+.timer-labels span:first-child {
+    transform: translateX(-3px);
+}
+
+.timer-labels span:last-child {
+    transform: translateX(3px);
+}
+
+/* Center the entire timer section vertically */
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sticky banner adjustments */
+.sticky-banner {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: #f7f7f7; /* Light gray background */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.0);
+    padding: 6px 0;
+}
+
+/* Media query for screens wider than 650px */
+@media (min-width: 650px) {
+    .sticky-banner {
+        display: flex;
+        justify-content: center;
+        padding: 6px 20px;
+    }
+
+    .timer-container,
+    .header-button {
+        justify-content: center;
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+}

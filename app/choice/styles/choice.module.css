@@ -1,0 +1,55 @@
+.bg-custom-pink {
+  background-color: #fbf0e7;
+}
+
+.amountButton {
+  background-color: #ebeef6;
+  width: 4.6rem; /* equivalent to w-20 */
+  height: 4.6rem; /* equivalent to h-20 */
+  margin: 0.0rem;
+  border-radius: 9999px; /* equivalent to rounded-full */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  fill: currentColor; /* Add fill property */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), -2px 2px 6px rgba(255, 0, 0, 0.15); /* Added light purple shadow */
+  border: 2px solid transparent; /* Default border */
+  font-weight: 600;
+  color: #313131;
+}
+
+
+.unselected {
+  border-color: #e5e7eb; /* equivalent to border-gray-200 */
+}
+
+.unselected:hover {
+  border-color: rgb(248, 205, 199); /* equivalent to hover:border-blue-300 */
+}
+
+.arrow-up {
+    font-size: 9.5rem;
+    font-weight: 500;
+  }
+  
+  .arrowup {
+    font-size: 9.5rem;
+    font-weight: 500;
+  }
+
+.selected-gradient {
+  background: linear-gradient(135deg, rgb(225, 120, 105) 60%, rgb(235, 166, 155) 90%, rgb(245, 213, 207) 100%);
+  border: 1px solid white;
+  color: white;
+  text-shadow: 0 0 1px #8B4513; /* Dark orange border effect */
+}
+
+.selected-button {
+    background: linear-gradient(135deg, rgb(225, 120, 105) 60%, rgb(235, 166, 155) 100%, rgb(215, 100, 85) 100%);
+    border: 1px solid white;
+    color: white;
+    text-shadow: 0 0 1px #8B4513;
+    border-radius: 15px;
+  }
