@@ -17,31 +17,46 @@ const CheckoutModal = ({ onClose, price }) => {
   const router = useRouter(); // Initialize the router for navigation
   const [clientSecret, setClientSecret] = useState("");
   const [isComplete, setIsComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const items = [{ id: "Full Report", amount: parseFloat(price) * 100 }]; // Convert price to cents
-    
-    fetch("/.netlify/functions/create-pay-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items }),
-    })
-      .then(async (res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
+    let isMounted = true;
+    const fetchPaymentIntent = async () => {
+      if (!clientSecret) {
+        setIsLoading(true);
+        const items = [{ id: "Full Report", amount: parseFloat(price) * 100 }];
+        try {
+          const response = await fetch("/.netlify/functions/create-pay-intent", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items }),
+          });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          if (!data.clientSecret) {
+            throw new Error("No clientSecret received from server");
+          }
+          if (isMounted) {
+            setClientSecret(data.clientSecret);
+          }
+        } catch (error) {
+          console.error("Error fetching payment intent:", error.message);
+        } finally {
+          if (isMounted) {
+            setIsLoading(false);
+          }
         }
-        return res.json();
-      })
-      .then((data) => {
-        if (!data.clientSecret) {
-          throw new Error("No clientSecret received from server");
-        }
-        setClientSecret(data.clientSecret);
-      })
-      .catch((error) => {
-        console.error("Error fetching payment intent:", error.message);
-      });
-  }, [price]);
+      }
+    };
+
+    fetchPaymentIntent();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [price, clientSecret]);
 
   const handleDiscountRedirect = () => {
     router.push("/offer"); // Redirect to the /offer page
@@ -92,7 +107,9 @@ const CheckoutModal = ({ onClose, price }) => {
           <p className="text-sxsm text-center mb-2">You will be charged only <span className="font-semibold">${price} for your 7-day trial.</span> </p>
         </div>
 
-        {clientSecret && (
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : clientSecret ? (
           <Elements options={options} stripe={stripePromise}>
             {isComplete ? (
               <CompletePage />
@@ -106,6 +123,8 @@ const CheckoutModal = ({ onClose, price }) => {
               />
             )}
           </Elements>
+        ) : (
+          <div>Error loading payment information. Please try again.</div>
         )}
       </div>
     </div>

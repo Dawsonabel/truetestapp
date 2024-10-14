@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from 'app/onboard/styles/onboard.module.css';
 
 let netlifyIdentity;
 
-export default function Register() {
+function OnboardContent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -87,5 +87,13 @@ export default function Register() {
       )}
       {/* Your form JSX here */}
     </div>
+  );
+}
+
+export default function Register() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OnboardContent />
+    </Suspense>
   );
 }

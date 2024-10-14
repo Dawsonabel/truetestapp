@@ -49,7 +49,12 @@
   align-items: center;
   justify-content: center;
   color:#fff;
-  font-weight: 900;
+  font-weight: 700;
+  text-shadow: 
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .unique-gender-button:hover {

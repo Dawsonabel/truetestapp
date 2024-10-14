@@ -51,7 +51,7 @@
     align-items: center;
     justify-content: center;
     color: rgb(56, 25, 21);
-    font-weight: 900;
+    font-weight: 700;
     background-color: rgb(221, 221, 221); 
   }
   
@@ -76,7 +76,7 @@
   }
   
   .question-text {
-    font-size: 28px;
+    font-size: 27px;
     font-weight: 700;
   }
 
