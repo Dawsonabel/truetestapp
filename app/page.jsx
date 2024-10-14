@@ -23,7 +23,7 @@ export default function Page() {
           <div className="flex flex-col items-center justify-start flex-grow mt-17 mb-0 pb-0">
             <h1 className="text-4xl font-bold mb-2">KNOW YOURSELF</h1>
             <p className="text-lg font-normal mt-3 text-center max-w-[550px]">
-              Exceptionally precise personality profile:<br />Enhance your relationships, self love, and professional life.
+              Hannah has biglys
             </p>
             <StartButton />        
             <p className="text-xs mt-2 text-gray-600">Take the test</p>
