@@ -1,0 +1,164 @@
+{
+    "themes": [
+      {
+        "id": 1,
+        "textStyle": {
+          "fontFamily": "'Roboto', sans-serif",
+          "fontSize": "2.5rem",
+          "textShadow": "2px 2px 4px rgba(0,0,0,0.3)",
+          "textTransform": "uppercase",
+          "color": "white",
+          "fontWeight": "bold"
+        },
+        "backgroundStyle": {
+          "backgroundImage": "url('/images/affirmations/55.jpeg')",
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        }
+      },
+      {
+        "id": 2,
+        "textStyle": {
+          "fontFamily": "'Roboto', sans-serif",
+          "fontSize": "2.5rem",
+          "textShadow": "2px 2px 4px rgba(0,0,0,0.3)",
+          "textTransform": "Lowercase",
+          "color": "white",
+          "fontWeight": "bold"
+        },
+        "backgroundStyle": {
+          "backgroundImage": "url('/images/affirmations/80.jpeg')",
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        }
+      },
+      {
+        "id": 3,
+        "textStyle": {
+          "fontFamily": "'Roboto', sans-serif",
+          "fontSize": "2.5rem",
+          "textShadow": "2px 2px 4px rgba(0,0,0,0.3)",
+          "textTransform": "uppercase",
+          "color": "white",
+          "fontWeight": "bold"
+        },
+        "backgroundStyle": {
+          "backgroundImage": "url('/images/affirmations/67.jpeg')",
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        }
+      },
+      {
+        "id": 4,
+        "textStyle": {
+          "fontFamily": "'Roboto', sans-serif",
+          "fontSize": "2.5rem",
+          "textShadow": "2px 2px 4px rgba(0,0,0,0.3)",
+          "textTransform": "lowercase",
+          "color": "white",
+          "fontWeight": "bold"
+        },
+        "backgroundStyle": {
+          "backgroundImage": "url('/images/affirmations/73.jpeg')",
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        }
+      },
+      {
+        "id": 5,
+        "textStyle": {
+          "fontFamily": "'Roboto', sans-serif",
+          "fontSize": "2.5rem",
+          "textShadow": "2px 2px 4px rgba(0,0,0,0.3)",
+          "textTransform": "uppercase",
+          "color": "white",
+          "fontWeight": "bold"
+        },
+        "backgroundStyle": {
+          "backgroundImage": "url('/images/affirmations/58.jpeg')",
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        }
+      },
+      {
+        "id": 6,
+        "textStyle": {
+          "fontFamily": "'Roboto', sans-serif",
+          "fontSize": "2.5rem",
+          "textShadow": "2px 2px 4px rgba(0,0,0,0.3)",
+          "textTransform": "lowercase",
+          "color": "white",
+          "fontWeight": "bold"
+        },
+        "backgroundStyle": {
+          "backgroundImage": "url('/images/affirmations/82.jpeg')",
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        }
+      },
+      {
+        "id": 7,
+        "textStyle": {
+          "fontFamily": "'Roboto', sans-serif",
+          "fontSize": "2.5rem",
+          "textShadow": "2px 2px 4px rgba(0,0,0,0.3)",
+          "textTransform": "uppercase",
+          "color": "white",
+          "fontWeight": "bold"
+        },
+        "backgroundStyle": {
+          "backgroundImage": "url('/images/affirmations/61.jpeg')",
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        }
+      },
+      {
+        "id": 8,
+        "textStyle": {
+          "fontFamily": "'Roboto', sans-serif",
+          "fontSize": "2.5rem",
+          "textShadow": "2px 2px 4px rgba(0,0,0,0.3)",
+          "textTransform": "lowercase",
+          "color": "white",
+          "fontWeight": "bold"
+        },
+        "backgroundStyle": {
+          "backgroundImage": "url('/images/affirmations/76.jpeg')",
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        }
+      },
+      {
+        "id": 9,
+        "textStyle": {
+          "fontFamily": "'Roboto', sans-serif",
+          "fontSize": "2.5rem",
+          "textShadow": "2px 2px 4px rgba(0,0,0,0.3)",
+          "textTransform": "uppercase",
+          "color": "white",
+          "fontWeight": "bold"
+        },
+        "backgroundStyle": {
+          "backgroundImage": "url('/images/affirmations/54.jpeg')",
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        }
+      },
+      {
+        "id": 10,
+        "textStyle": {
+          "fontFamily": "'Roboto', sans-serif",
+          "fontSize": "2.5rem",
+          "textShadow": "2px 2px 4px rgba(0,0,0,0.3)",
+          "textTransform": "lowercase",
+          "color": "white",
+          "fontWeight": "bold"
+        },
+        "backgroundStyle": {
+          "backgroundImage": "url('/images/affirmations/89.jpeg')",
+          "backgroundSize": "cover",
+          "backgroundPosition": "center"
+        }
+      }
+    ]
+  }

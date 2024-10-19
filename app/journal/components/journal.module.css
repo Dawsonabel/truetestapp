@@ -1,0 +1,73 @@
+.journalPageContainer {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  background-color: white;
+}
+
+.journalPageTitle {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.journalPageButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.25rem;
+  flex-wrap: nowrap;
+}
+
+.journalPageButton {
+  flex: 1;
+  min-width: 0;
+  max-width: 25%;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.journalPageButton h2 {
+  margin: 0 0 0.2rem 0;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.journalPageButton p {
+  margin: 0;
+  font-size: 0.6rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.journalPageButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.journalPageMoodButton {
+  background-color: #fff5e6;
+  border-color: #ffd699;
+}
+
+.journalPageGratitudeButton {
+  background-color: #e6ffe6;
+  border-color: #99ff99;
+}
+
+.journalPageAnxietyButton {
+  background-color: #e6f2ff;
+  border-color: #99ccff;
+}
+
+.journalPageWorryButton {
+  background-color: #ffe6ff;
+  border-color: #ff99ff;
+}

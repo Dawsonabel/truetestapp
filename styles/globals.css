@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -53,6 +55,7 @@ html, body {
     margin: 0;
     color: black;
     overflow-x: clip;
+    background-color: #FDF0E6;
 }
 
 /* Main Container - Responsive handling */

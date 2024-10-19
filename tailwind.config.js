@@ -40,10 +40,12 @@ module.exports = {
                     400: 'rgb(235, 130, 115)',
                     500: 'rgb(220, 105, 87)',
                     600: 'rgb(205, 80, 60)',
-                }
+                },
+                salmon: '#FA8072',  // You can adjust this hex code to get the exact shade you want
             },
             fontFamily: {
-                sans: ['Inter', ...defaultTheme.fontFamily.sans]
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                cursive: ['"Dancing Script"', 'cursive'],
             },
             fontSize: {
                 xsm: '0.75rem',   // Smaller than sm (12px)
@@ -75,6 +77,10 @@ module.exports = {
             },
             height: {
                 '350': '350px',
+                '35': '7.25rem', // This adds a new h-35 class
+            },
+            textShadow: {
+                'lg': '0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3)',
             },
         }
     },
@@ -92,5 +98,17 @@ module.exports = {
             }
         ]
     },
-    plugins: [require('daisyui')]
+    plugins: [
+        require('daisyui'),
+        function ({ matchUtilities, theme }) {
+            matchUtilities(
+                {
+                    'text-shadow': (value) => ({
+                        textShadow: value,
+                    }),
+                },
+                { values: theme('textShadow') }
+            )
+        },
+    ],
 };

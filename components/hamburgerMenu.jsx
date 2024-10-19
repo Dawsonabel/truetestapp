@@ -24,12 +24,10 @@ const HamburgerMenu = () => {
       <div className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md transition-opacity duration-300 ease-in-out z-[999] ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className={`absolute inset-y-0 right-0 w-64 bg-white shadow-lg p-8 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <nav className="flex flex-col space-y-6 items-end mt-12">
-            <Link href="/subscription" className="text-black text-2xl font-semibold hover:text-[rgb(230,156,99)] no-underline transition-colors duration-200">Subscription</Link>
-            <Link href="/moneyback" className="text-black text-2xl font-semibold hover:text-[rgb(230,156,99)] no-underline transition-colors duration-200">Money Back</Link>
-            <Link href="/faq" className="text-black text-2xl font-semibold hover:text-[rgb(230,156,99)] no-underline transition-colors duration-200">FAQ</Link>
-            <Link href="/privacy" className="text-black text-2xl font-semibold hover:text-[rgb(230,156,99)] no-underline transition-colors duration-200">Privacy Policy</Link>
-            <Link href="/terms" className="text-black text-2xl font-semibold hover:text-[rgb(230,156,99)] no-underline transition-colors duration-200">Terms of Service</Link>
-            <Link href="/contact" className="text-black text-2xl font-semibold hover:text-[rgb(230,156,99)] no-underline transition-colors duration-200">Contact</Link>
+            <Link href="/dashboard" className="text-black text-2xl font-semibold hover:text-[rgb(230,156,99)] no-underline transition-colors duration-200">Home</Link>
+            <Link href="/subscription" className="text-black text-2xl font-semibold hover:text-[rgb(230,156,99)] no-underline transition-colors duration-200">Support</Link>
+            <Link href="/moneyback" className="text-black text-2xl font-semibold hover:text-[rgb(230,156,99)] no-underline transition-colors duration-200">Account</Link>
+            <Link href="/moneyback" className="text-black text-2xl font-semibold hover:text-[rgb(230,156,99)] no-underline transition-colors duration-200">Policies</Link>
           </nav>
         </div>
       </div>

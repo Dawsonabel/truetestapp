@@ -1,0 +1,102 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-width: 500px;
+    height: 80vh;
+    max-height: 80vh;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  .modalHeader {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  .modalCloseButton {
+    background: transparent;
+    border: 2px solid #333;
+    border-radius: 20px;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .modalCloseButton:hover {
+    background: #333;
+    color: #ffffff;
+  }
+  
+  .modalHeader h2 {
+    margin: 0;
+    color: #333;
+    font-size: 24px;
+  }
+  
+  .modalBody {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  
+  .themeGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px 0;
+  }
+  
+  .themeCard {
+    aspect-ratio: 1 / 1.5;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .themeCard:hover {
+    transform: scale(1.05);
+  }
+  
+  .themeText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+    padding: 5px;
+    font-size: 25px !important;
+    font-weight: bold;
+    background: none !important;
+  }
