@@ -82,7 +82,7 @@ export default function LoginPage() {
       {showModal && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
-            <h2>You're already logged in</h2>
+            <h2>You&apos;re already logged in</h2>
             <p>Please return to the dashboard.</p>
             <button onClick={() => router.push('/')} className={styles.button}>
               Go to Dashboard
