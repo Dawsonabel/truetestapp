@@ -1,0 +1,77 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+
+.modalOverlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 0 20px 10px 20px;
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  max-height: 100vh;
+  overflow-y: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%); /* Start off-screen */
+  transition: transform 0.3s ease-out;
+}
+
+.modalOverlay.open .modalContent {
+  transform: translateY(0); /* Move into view */
+}
+
+.modalOverlay.closing {
+  opacity: 0;
+}
+
+.modalOverlay.closing .modalContent {
+  transform: translateY(100%); /* Move out of view */
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgb(242, 242, 242);
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.closeButton:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.closeButton svg {
+  width: 24px;
+  height: 24px;
+}
+
+.modalTitle {
+  text-align: center;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,81 @@
+.gratitudeContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .dateTime {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .progressBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    height: 50px;
+    background-color: #f0f0f0;    
+    border-radius: 40px;
+    padding: 0 5px 0 5px;
+    margin-bottom: 20px;
+  }
+  
+  .progressText {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .progressArrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #2196F3;
+    border-radius: 50%;
+    font-size: 1.2em;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .progressArrowDisabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .questionSection {
+    width: 100%;
+    text-align: left;
+    
+  }
+  
+  .questionLabel {
+    display: block;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+  
+  .gratitudeInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    caret-color: #2196F3; 
+  }
+  
+  .gratitudeTitle {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0px;
+    padding: 0px;
+  }
+  

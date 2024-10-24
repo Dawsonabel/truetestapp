@@ -1,0 +1,56 @@
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cardIcon {
+  margin-right: 8px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.cardDate {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.cardMood {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.cardNote {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+/* Mood-specific colors */
+.cardMood[data-mood="1"] { color: #d32f2f; } /* Very Bad */
+.cardMood[data-mood="2"] { color: #f57c00; } /* Bad */
+.cardMood[data-mood="3"] { color: #fbc02d; } /* Neutral */
+.cardMood[data-mood="4"] { color: #388e3c; } /* Good */
+.cardMood[data-mood="5"] { color: #1976d2; } /* Very Good */
+

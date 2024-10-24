@@ -1,73 +1,249 @@
 .journalPageContainer {
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 16px;
+}
+
+.journalContentWrapper {
+  width: 100%;
+  max-width: 500px;
   margin: 0 auto;
-  padding: 0.5rem;
+}
+
+.journalHeader {
+  max-width: 360px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 5px auto 20px auto;
+  padding: 0 15px;
   background-color: white;
+  border-radius: 20px;
+  min-height: 40px;
+}
+
+@media (max-width: 500px) {
+  .journalHeader {
+    width: calc(100% - 100px);
+  }
 }
 
 .journalPageTitle {
-  text-align: center;
-  color: #333;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+  font-size: 24px;
+  margin: 0 10px 0 0;
+  padding-bottom: 0;
 }
 
 .journalPageButtonContainer {
   display: flex;
-  justify-content: space-between;
-  gap: 0.25rem;
-  flex-wrap: nowrap;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.journalPageButtonContent {
+margin: 0;
+padding: 0;
+}
+
+.moodButtonRow,
+.otherButtonsRow {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
 }
 
 .journalPageButton {
   flex: 1;
-  min-width: 0;
-  max-width: 25%;
-  padding: 0.5rem;
-  border-radius: 10px;
-  border: 1px solid;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 8px;
+  min-height: 100px;
+  border: 2px solid;
+  border-radius: 20px;
   transition: all 0.3s ease;
   text-align: left;
+  width: 100%; /* Make the button take full width */
 }
 
 .journalPageButton h2 {
-  margin: 0 0 0.2rem 0;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 700;
+  align-self: flex-start;
 }
 
 .journalPageButton p {
-  margin: 0;
-  font-size: 0.6rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 4px 0 2px;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+  align-self: flex-start;
 }
 
-.journalPageButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.buttonIconRow {
+  display: flex;
+  align-items: center;
+  margin: 2px 0 4px;
+  align-self: flex-start;
+}
+
+.buttonIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.buttonIconBrain {
+  width: 36px;
+  height: 29px;
 }
 
 .journalPageMoodButton {
-  background-color: #fff5e6;
-  border-color: #ffd699;
+  max-width: 100%;
+  width: 100%;
 }
 
-.journalPageGratitudeButton {
-  background-color: #e6ffe6;
-  border-color: #99ff99;
+/* Button styles */
+.journalPageMoodButton { 
+  --button-color: #ff8c00; 
+  --bg-color: rgba(255, 215, 0, 0.3); 
+  --border-color: #FFD700;
+}
+.journalPageGratitudeButton { 
+  --button-color: #2aa12e; 
+  --bg-color: rgba(152, 251, 152, 0.3); 
+  --border-color: #7fe57f;
+}
+.journalPageAnxietyButton { 
+  --button-color: #2196F3; 
+  --bg-color: rgba(135, 206, 250, 0.3); 
+  --border-color: #87CEFA;
+}
+.journalPageWorryButton { 
+  --button-color: #FF7043; 
+  --bg-color: rgba(255, 160, 122, 0.3); 
+  --border-color: #FFA07A;
 }
 
-.journalPageAnxietyButton {
-  background-color: #e6f2ff;
-  border-color: #99ccff;
+.journalPageButton {
+  border-color: var(--border-color);
+  background-color: var(--bg-color);
 }
 
-.journalPageWorryButton {
-  background-color: #ffe6ff;
-  border-color: #ff99ff;
+.journalPageButton .buttonIcon { fill: var(--button-color); }
+.journalPageButton h2,
+.journalPageButton p { color: var(--button-color); }
+
+.entriesTitle {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #0000003b;
+  flex-grow: 1;
 }
+
+.entriesTitle::before,
+.entriesTitle::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #0000003b;
+}
+
+.entriesTitle::before { margin-right: 10px; }
+.entriesTitle::after { margin-left: 10px; }
+
+.streakCounter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5%;
+  padding: 1px 15px 1px 0px;
+}
+
+.streakContent {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 40%;
+}
+
+.flameSvg {
+  width: 24px;
+  height: 24px;
+  fill: #ff6b6b;
+  margin-right: 4px;
+}
+
+.streakDays {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.trendsButton {
+  font-size: 14px;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.trendsButton:hover {
+  background-color: #e0e0e0;
+}
+
+.entriesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Add these new styles at the end of the file */
+.card {
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.cardDate {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.cardResponse {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.mood { border-left: 4px solid #FFD700; }
+.gratitude { border-left: 4px solid #7fe57f; }
+.anxiety { border-left: 4px solid #87CEFA; }
+.worry { border-left: 4px solid #FFA07A; }

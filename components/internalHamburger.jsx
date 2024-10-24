@@ -68,7 +68,7 @@ const InternalHamburger = () => {
         animate={isOpen ? "open" : "closed"}
         variants={menuVariants}
         transition={{ duration: 0.3 }}
-        className="absolute top-0 left-0 right-0 bg-white rounded-b-lg shadow-lg z-40"
+        className="absolute top-0 left-0 right-0 bg-white rounded-b-lg z-40"
         style={{ height: '80px', maxWidth: '500px' }} // Fixed height
       >
         <div className="flex h-full">

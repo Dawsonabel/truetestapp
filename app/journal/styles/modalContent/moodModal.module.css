@@ -1,0 +1,186 @@
+.gratitudeContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .dateTime {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  .progressBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    height: 50px;
+    background-color: #f0f0f0;    
+    border-radius: 40px;
+    padding: 0 5px 0 5px;
+    margin-bottom: 20px;
+  }
+  
+  .progressText {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .progressArrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #ff8c00;
+    border-radius: 50%;
+    font-size: 1.2em;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .progressArrowDisabled {
+    background-color: #ff8c00;
+    cursor: not-allowed;
+  }
+  
+  .questionSection {
+    width: 100%;
+    text-align: left;
+    
+  }
+  
+  .questionLabel {
+    display: block;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+  
+  .gratitudeInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    caret-color: #ff8c00; 
+  }
+  
+  .gratitudeTitle {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .moodType {
+    width: 100%;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .moodContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #ffcca237;
+    border-radius: 20px;
+  }
+
+  .emojiDisplay {
+    font-size: 4rem;
+    margin: -5px 0 -5px 0;
+    padding: 0px;
+  }
+
+  .moodInput {
+    width: 100%;
+    box-shadow: none;
+    border: none; 
+    caret-color: #ff8c00;
+  }
+
+  .moodInput:focus {
+    outline: none; 
+    border: none;  
+    caret-color: #ff8c00;
+  }
+
+  .error {
+    color: #d9844f; /* Red text color */
+    background-color: #f8ead7; /* Soft pastel red background */
+    padding: 5px;
+    border-radius: 4px;
+    margin-top: 5px;
+    text-align: center;
+  }
+
+.dayWordSection {
+  background-color: #ffcca237;
+  padding: 12px 15px 2px 15px;
+  border-radius: 20px;
+}
+
+.submitButton {
+  width: 100%;
+  background-color: #ffaa5f;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 10px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.moodContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.moodTitle {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.moodButtonsContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.moodButton {
+  flex: 1;
+  margin: 0 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.moodButton:hover {
+  transform: scale(1.1);
+}
+
+.moodButton.selected {
+  border: 2px solid #ff8c00;
+  border-radius: 10px;
+}
+
+.moodImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
