@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from '../styles/MoodEntryCard.module.css';
 
 const MoodEntryCard = ({ entry }) => {
   const { responses, dateTime } = entry;
