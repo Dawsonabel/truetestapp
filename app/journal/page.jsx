@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import styles from './styles/journal.module.css';
-import cardStyles from './styles/JournalEntryCard.module.css';
 import MoodModal from 'app/journal/components/modalContent/mood.jsx';
 import GratitudeModal from 'app/journal/components/modalContent/grat.jsx';
 import AnxietyModal from 'app/journal/components/modalContent/anxiety.jsx';
