@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from 'app/journal/styles/JournalEntryCard.module.css';
+import styles from 'app/journal/styles/journalEntryCard.module.css';
 
 const JournalEntryCard = ({ entry }) => {
   const { type, responses, dateTime } = entry;
