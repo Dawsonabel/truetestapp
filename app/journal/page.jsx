@@ -8,7 +8,6 @@ import GratitudeModal from 'app/journal/components/modalContent/grat.jsx';
 import AnxietyModal from 'app/journal/components/modalContent/anxiety.jsx';
 import WorryModal from 'app/journal/components/modalContent/worry.jsx';
 import FlameSVG from 'app/journal/components/flameSVG.jsx';
-import JournalEntryCard from './components/journalEntryCard';
 import DayCard from './components/dayCard';
 import TrendsComponent from './components/trends.jsx';
 
