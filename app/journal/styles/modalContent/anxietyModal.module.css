@@ -79,3 +79,57 @@
     padding: 0px;
   }
   
+  .dateTimeInputWrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f0f8ff;
+    border: 2px solid #b0e0e6;
+    border-radius: 20px;
+    padding: 0px 0px;
+    margin: 10px 0 20px 0;
+    transition: all 0.3s ease;
+    max-width: 260px;
+    z-index: 1000;
+  }
+  
+  .dateTimeInputWrapper:hover {
+    background-color: #e6f3ff;
+    box-shadow: 0 2px 8px rgba(176, 224, 230, 0.4);
+  }
+  
+  .dateTimeIcon {
+    width: 24px;
+    height: 24px;
+    margin: 0px 0px 0px 10px;
+    fill: #87ceeb;
+  }
+  
+  .dateTimeInput {
+    font-size: 0.9em;
+    color: #4682b4;
+    background: transparent;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    transition: color 0.3s ease;
+    align-self: center;
+    justify-self: center;
+    margin: 0px;
+    padding: 10px 10px 10px 0px;
+    margin-right: 20px;
+    border: none !important;
+  }
+  
+  .dateTimeInput:focus {
+    border: none !important;
+    box-shadow: none !important;
+    color: #4169e1;
+  }
+  
+  .datePickerWrapper {
+    z-index: 1000;
+    margin: auto;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+  }

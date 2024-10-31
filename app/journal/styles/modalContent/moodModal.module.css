@@ -7,7 +7,7 @@
   .dateTime {
     font-size: 0.9em;
     color: #666;
-    margin-bottom: 5px;
+    margin: 15px 0 25px 0;
   }
   
   .progressBar {
@@ -90,6 +90,7 @@
 
   .moodContainer {
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
@@ -104,6 +105,7 @@
   }
 
   .moodInput {
+    padding: 20px 0 0 10px;
     width: 100%;
     box-shadow: none;
     border: none; 
@@ -145,23 +147,39 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  justify-content: center;
+  padding: 20px 5px 5px 5px;
+  margin-bottom: 100px;
 }
 
 .moodTitle {
-  font-size: 2em;
+  font-size: 2.5em;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .moodButtonsContainer {
+  position: relative; /* Ensure the container is positioned relative */
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 
+.circleBackground {
+  position: absolute;
+  width: 150%;
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -57%); 
+  z-index: -10; 
+  opacity: 0.1;
+}
+
 .moodButton {
+  position: relative; /* Ensure buttons are positioned relative to the container */
+  z-index: 1; /* Ensure buttons are above the circle */
   flex: 1;
   margin: 0 5px;
   background: none;
@@ -183,4 +201,96 @@
   width: 100%;
   height: auto;
   display: block;
+}
+
+.dateTimeInputWrapper {
+  display: flex;
+  align-items: center;
+  background-color: #f0f8ff; /* Light pastel blue background */
+  border: 2px solid #b0e0e6; /* Powder blue border */
+  border-radius: 20px;
+  padding: 0px 0px;
+  margin: -75px 0 65px 0;
+  transition: all 0.3s ease;
+  max-width: 260px;
+  z-index: 1000;
+  padding: 0px 0px;
+}
+
+.dateTimeInputWrapper:hover {
+  background-color: #e6f3ff; /* Slightly darker pastel blue on hover */
+  box-shadow: 0 2px 8px rgba(176, 224, 230, 0.4); /* Soft shadow on hover */
+}
+
+.dateTimeIcon {
+  width: 24px;
+  height: 24px;
+  margin: 0px 0px 0px 10px;
+  fill: #87ceeb; /* Sky blue color for the icon */
+}
+
+.dateTimeInput {
+  font-size: 0.9em;
+  color: #4682b4; /* Steel blue text color */
+  background: transparent;
+  width: 100%;
+  max-width: 200px;
+  text-align: center;
+  transition: color 0.3s ease;
+  align-self: center;
+  justify-self: center;
+  margin: 0px;
+  padding: 10px 10px 10px 0px;
+  margin-right: 20px;
+  border: none !important;
+}
+
+.dateTimeInput:focus {
+  border: none !important;
+  box-shadow: none !important;
+  color: #4169e1; /* Royal blue text color on focus */
+}
+
+.moodButtonWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.moodLabel {
+  margin-top: 5px;
+  font-size: 0.9em;
+  font-weight: 900;
+}
+
+.moodLabel.great {
+  color: #24a276; /* Gold for happy */
+}
+
+.moodLabel.good {
+  color: #70cf69; /* DodgerBlue for sad */
+}
+
+.moodLabel.okay {
+  color: #dac343; /* OrangeRed for angry */
+}
+
+.moodLabel.bad {
+  color: #e6a570; /* LimeGreen for relaxed */
+}
+
+.moodLabel.terrible {
+  color: #e67070; /* LimeGreen for relaxed */
+}
+
+.noteContainer {
+  padding: 10px;
+}
+
+.datePickerWrapper {
+  z-index: 1000;
+  margin: auto;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
 }

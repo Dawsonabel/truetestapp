@@ -5,7 +5,6 @@ const openai = new OpenAI({
 });
 
 exports.handler = async (event, context) => {
-    console.log(`API Key: ${process.env.OPENAI_API_KEY_MAIN}`);
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
@@ -13,17 +12,37 @@ exports.handler = async (event, context) => {
   try {
     const { messages } = JSON.parse(event.body);
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    // Create the streaming completion
+    const stream = await openai.chat.completions.create({
+      model: 'gpt-4',
       messages: messages,
+      stream: true,
     });
 
+    let fullResponse = '';
+    for await (const chunk of stream) {
+      const content = chunk.choices[0]?.delta?.content || '';
+      if (content) {
+        fullResponse += content;
+        // Send each chunk with proper JSON formatting and newline
+        // Remove the return statement from here!
+        console.log(`Sending chunk: ${content}`);
+      }
+    }
+
+    // Return the complete response after the stream is finished
     return {
       statusCode: 200,
-      body: JSON.stringify({ reply: completion.choices[0].message.content }),
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
+      body: `data: ${JSON.stringify({ content: fullResponse })}\n\n`
     };
+
   } catch (error) {
-    console.error('Error in chat function:', error);
+    console.error('Error:', error);
     return { 
       statusCode: 500, 
       body: JSON.stringify({ error: 'An error occurred', details: error.message }) 

@@ -1,0 +1,124 @@
+.dayCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.dateHeader {
+  background-color: #f0f0f0;
+  padding: 12px 16px;
+}
+
+.dateHeader h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.otherEntriesContainer {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #f9f9f9;
+}
+
+.entryButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border: 2px solid var(--button-color);
+  border-radius: 20px;
+  background-color: rgba(var(--button-color), 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.entryButton:hover {
+  background-color: rgba(var(--button-color), 0.2);
+}
+
+.entryIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.arrowIcon {
+  width: 16px;
+  height: 16px;
+  stroke: var(--button-color);
+  stroke-width: 2;
+  fill: none;
+}
+
+.entriesContainer {
+  padding: 16px;
+}
+
+/* Preserve existing styles for mood entries */
+.entryCard {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cardIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+.cardInfo {
+  flex-grow: 1;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cardTime {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.cardContent {
+  font-size: 16px;
+}
+
+.moodContent {
+  display: flex;
+  align-items: center;
+}
+
+.moodIcon {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+}
+
+.moodText {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.cardResponse {
+  margin: 8px 0;
+}
+
+.worryIcon {
+  width: 26px;  /* Slightly wider */
+  height: 22px; /* Slightly shorter */
+}

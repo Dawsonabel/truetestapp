@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from 'app/journal/styles/JournalEntryCard.module.css';
 
 const JournalEntryCard = ({ entry }) => {
   const { type, responses, dateTime } = entry;
@@ -12,7 +13,7 @@ const JournalEntryCard = ({ entry }) => {
     }
   };
 
-  const getTypeImage = () => {
+  const getTypeIcon = () => {
     switch (type) {
       case 'gratitude': return '/images/icons/growth.png';
       case 'anxiety': return '/images/icons/tornado.png';
@@ -21,22 +22,31 @@ const JournalEntryCard = ({ entry }) => {
     }
   };
 
+  const formatTime = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    return date.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  };
+
   return (
-    <div className={`${styles.card} ${styles[type]}`}>
+    <div className={`${styles.entryCard} ${styles[type]}`}>
       <div className={styles.cardHeader}>
         <img
-          src={getTypeImage()}
-          alt={`${getTypeTitle()} icon`}
+          src={getTypeIcon()}
+          alt={getTypeTitle()}
           width={24}
           height={24}
           className={styles.cardIcon}
         />
-        <h3 className={styles.cardTitle}>{getTypeTitle()}</h3>
+        <div>
+          <h3 className={styles.cardTitle}>{getTypeTitle()}</h3>
+          <p className={styles.cardTime}>{formatTime(dateTime)}</p>
+        </div>
       </div>
-      <p className={styles.cardDate}>{dateTime}</p>
-      {responses.map((response, index) => (
-        <p key={index} className={styles.cardResponse}>{response}</p>
-      ))}
+      <div className={styles.cardContent}>
+        {responses.map((response, index) => (
+          <p key={index} className={styles.cardResponse}>{response}</p>
+        ))}
+      </div>
     </div>
   );
 };

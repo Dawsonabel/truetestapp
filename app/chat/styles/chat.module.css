@@ -1,0 +1,18 @@
+/* Add any custom styles here if needed */
+.chatContainer {
+    scrollbar-width: thin;
+    scrollbar-color: #7081e6 transparent;
+  }
+  
+  .chatContainer::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .chatContainer::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .chatContainer::-webkit-scrollbar-thumb {
+    background-color: #7081e6;
+    border-radius: 3px;
+  }

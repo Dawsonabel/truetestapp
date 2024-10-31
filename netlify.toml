@@ -11,3 +11,13 @@
 
 [build.environment]
   NEXT_PRIVATE_TARGET = "server"
+
+[[edge_functions]]
+  path = "/netlify/edge-functions/chat"
+  function = "chat"
+
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+  force = true

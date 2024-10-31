@@ -14,6 +14,10 @@ module.exports = {
                     DEFAULT: '#e0d6f5', // Default shade of Pale Lavender
                     light: '#ddd6f3' // Lighter shade of Pale Lavender
                 },
+                chill: {
+                    DEFAULT: '#7081e6',
+                    hover: '#5b6ac9',
+                },
                 lightgray: {
                     70: '#f7f7f7',  // Very slightly darker than 50
                     60: '#f8f8f8',  // Just a touch darker than 50
