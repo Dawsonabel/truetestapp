@@ -10,7 +10,7 @@ import WorryModal from 'app/journal/components/modalContent/worry.jsx';
 import FlameSVG from 'app/journal/components/flameSVG.jsx';
 import JournalEntryCard from './components/JournalEntryCard';
 import MoodEntryCard from './components/MoodEntryCard';
-import DayCard from './components/DayCard';
+import DayCard from './components/dayCard';
 import TrendsComponent from './components/trends.jsx';
 
 const TrendsIcon = () => (
