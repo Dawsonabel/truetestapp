@@ -6,8 +6,10 @@ import themesData from '../../data/themes.json';
 import affirmationsData from '../../data/affirmations.json';
 import styles from './styles/affirm.css';
 import ThemeModal from './components/themeModal';
+import { useRouter } from 'next/navigation';
 
 export default function DailyAffirmations() {
+  const router = useRouter();
   const [affirmationIndex, setAffirmationIndex] = useState(0);
   const [themeIndex, setThemeIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -28,6 +30,12 @@ export default function DailyAffirmations() {
   const hintTimeoutRef = useRef(null);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+
     if (!hasInteracted) {
       hintTimeoutRef.current = setTimeout(() => {
         setShouldShowHint(true);
@@ -39,7 +47,7 @@ export default function DailyAffirmations() {
         clearTimeout(hintTimeoutRef.current);
       }
     };
-  }, [hasInteracted]);
+  }, [hasInteracted, router]);
 
   const handleInteraction = () => {
     if (!hasInteracted) {

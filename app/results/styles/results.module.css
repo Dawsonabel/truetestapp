@@ -1,0 +1,137 @@
+.pageContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .headerContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .title {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  .resultsCard {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .subtitle {
+    font-size: 1.5rem;
+    color: #494854;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .descriptionCard,
+  .strengthsCard,
+  .growthCard {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .descriptionCard h3,
+  .strengthsCard h3,
+  .growthCard h3 {
+    color: #494854;
+    margin-bottom: 1rem;
+  }
+  
+  .strengthsCard ul,
+  .growthCard ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .strengthsCard li,
+  .growthCard li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  
+  .strengthsCard li:before,
+  .growthCard li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: rgba(255, 147, 182, 1);
+  }
+  
+  .loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+  
+  .loadingSpinner {
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+  
+  .spinner {
+    animation: rotate 2s linear infinite;
+  }
+  
+  .spinner circle {
+    stroke: rgba(255, 147, 182, 1);
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+  
+  .errorContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+  
+  .error {
+    color: #ff4444;
+    text-align: center;
+  }
+  
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes dash {
+    0% {
+      stroke-dasharray: 1, 150;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -35;
+    }
+    100% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -124;
+    }
+  }

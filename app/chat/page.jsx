@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import styles from 'app/chat/styles/chat.module.css';
 import { prepareMessages } from './components/prompt';
+import { useRouter } from 'next/navigation';
 
 export default function ChatPage() {
+  const router = useRouter();
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -71,6 +73,14 @@ export default function ChatPage() {
 
     fetchJournalContext();
   }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+  }, [router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

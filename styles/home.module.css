@@ -1,66 +1,348 @@
-.homeContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 2rem;
-    background-color: #f0f4f8;
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3rem;
+  max-width: 500px;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.5rem auto 0.25rem 0.5rem;
+  width: 100%;
+  max-width: 600px;
+  padding: 0 1rem;
+}
+
+.quoteCard {
+  background: linear-gradient(
+    135deg,
+    rgba(147, 155, 255, 0.15) 0%,
+    rgba(178, 149, 255, 0.08) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.75rem;
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  max-width: 600px;
+  width: 90%;
+  margin: 0.4rem auto 0.75rem auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.quoteCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 48%,
+    rgba(0, 0, 0, 0.02) 50%,
+    transparent 52%
+  );
+  background-size: 200% 200%;
+  animation: shine 5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
   }
-  
-  .homeTitle {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 1rem;
-    text-align: center;
+  100% {
+    background-position: -200% 0;
   }
-  
-  .homeDescription {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  
-  .cardContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    width: 100%;
-    max-width: 1000px;
-  }
-  
-  .card {
-    background-color: white;
-    border-radius: 10px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-  }
-  
-  .card h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 0.5rem;
-  }
-  
-  .card p {
-    font-size: 1rem;
-    color: #666;
-  }
-  
-  .footer {
-    margin-top: 3rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #888;
-  }
+}
+
+.lightbulb {
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 1.5rem;
+  color: rgba(147, 155, 255, 1);
+  margin: 0;
+  font-weight: 800;
+}
+
+.quote {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+}
+
+.author {
+  display: block;
+  margin-top: 1rem;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.resultsCard {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 147, 182, 0.15) 0%,
+    rgba(255, 149, 149, 0.08) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.75rem;
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  max-width: 600px;
+  width: 90%;
+  margin: 0.4rem auto 0.75rem auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.resultsCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 48%,
+    rgba(0, 0, 0, 0.02) 50%,
+    transparent 52%
+  );
+  background-size: 200% 200%;
+  pointer-events: none;
+}
+
+.titleResults {
+  font-size: 1.5rem;
+  color: rgba(255, 147, 182, 1);
+  margin: 0;
+  font-weight: 800;
+}
+
+.centerIcon {
+  display: block;
+  margin: 2rem auto;
+}
+
+.resultsImage {
+  display: block;
+  margin: 0.25rem auto;
+  width: 50%;
+  object-fit: contain;
+}
+
+.testType {
+  font-size: 1.25rem;
+  color: rgba(73, 72, 84, 0.877);
+  margin: 0;
+  font-weight: 800;
+  text-align: center;
+}
+
+.headerContainer2 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.35rem auto 0.25rem 0.5rem;
+  width: 100%;
+  max-width: 600px;
+  padding: 0 1rem;
+}
+
+.seeResultsButton {
+  display: block;
+  width: 80%;
+  margin: 1rem auto 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 147, 182, 0.3) 0%,
+    rgba(255, 149, 149, 0.2) 100%
+  );
+  border: 1px solid rgba(255, 147, 182, 0.4);
+  border-radius: 12px;
+  color: rgba(73, 72, 84, 0.877);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.seeResultsButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 147, 182, 0.2);
+}
+
+.buttonIcon {
+  transition: transform 0.2s ease;
+  margin-top: 2px;
+}
+
+.journalCard {
+  background: linear-gradient(
+    135deg,
+    rgba(112, 129, 230, 0.15) 0%,
+    rgba(112, 129, 230, 0.08) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.75rem;
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  max-width: 600px;
+  width: 90%;
+  margin: 0.4rem auto 0.75rem auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.titleJournal {
+  font-size: 1.5rem;
+  color: rgba(112, 129, 230, 1);
+  margin: 0;
+  font-weight: 800;
+}
+
+.chatCard {
+  background: linear-gradient(
+    135deg,
+    rgba(67, 186, 141, 0.15) 0%,
+    rgba(67, 186, 141, 0.08) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.75rem;
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  max-width: 600px;
+  width: 90%;
+  margin: 0.4rem auto 0.75rem auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.titleChat {
+  font-size: 1.5rem;
+  color: rgba(67, 186, 141, 1);
+  margin: 0;
+  font-weight: 800;
+}
+
+.journalButton {
+  background: rgba(112, 129, 230, 0.15);
+  border: 1px solid rgba(112, 129, 230, 0.3);
+  min-width: 48px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.journalButton:hover {
+  background: rgba(112, 129, 230, 0.25);
+}
+
+.chatButton {
+  background: rgba(67, 186, 141, 0.15);
+  border: 1px solid rgba(67, 186, 141, 0.3);
+  min-width: 48px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.chatButton:hover {
+  background: rgba(67, 186, 141, 0.25);
+}
+
+.seeResultsButton {
+  margin-top: 1rem;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  margin: 1rem auto 0.5rem;
+}
+
+.cardSubtext {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  margin: 0.5rem auto;
+  padding: 0 1rem;
+  max-width: 80%;
+}
+
+.manifestCard {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 183, 77, 0.15) 0%,
+    rgba(255, 183, 77, 0.08) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.75rem;
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  max-width: 600px;
+  width: 90%;
+  margin: 0.4rem auto 0.75rem auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.titleManifest {
+  font-size: 1.5rem;
+  color: rgba(255, 183, 77, 1);
+  margin: 0;
+  font-weight: 800;
+}
+
+.manifestButton {
+  background: rgba(255, 183, 77, 0.15);
+  border: 1px solid rgba(255, 183, 77, 0.3);
+  min-width: 48px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.manifestButton:hover {
+  background: rgba(255, 183, 77, 0.25);
+}

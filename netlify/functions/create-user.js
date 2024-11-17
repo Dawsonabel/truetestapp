@@ -9,7 +9,7 @@ exports.handler = async (event, context) => {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  const { email, password, name, paymentIntentId, userId } = JSON.parse(event.body);
+  const { email, password, name, paymentIntentId, userId, quizAnswers } = JSON.parse(event.body);
 
   if (!email || !password || !name) {
     return { statusCode: 400, body: JSON.stringify({ message: 'Missing required fields' }) };
@@ -59,6 +59,7 @@ exports.handler = async (event, context) => {
       stripeCustomerId,
       paymentIntentId,
       userId,
+      quizAnswers,
       createdAt: new Date(),
       updatedAt: new Date(),
     };

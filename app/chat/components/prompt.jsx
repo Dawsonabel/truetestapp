@@ -16,8 +16,9 @@ export const createSystemPrompt = (journalContext) => {
                 - Keep responses concise and actionable
                 - If discussing anxiety or worries, maintain a supportive and solution-focused approach
                 - Dont explicitly mention having access to journal unless asked about it
+                - If you dont see recent journal entries, recommend they do it. Same for personality report.
                 
-                Remember: be concise and try to keep the messages under 100 words.`
+                Remember: be concise and try to keep the messages under 30 words unless a longer message is needed.`
     };
   };
   

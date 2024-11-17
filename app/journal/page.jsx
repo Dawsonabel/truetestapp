@@ -46,8 +46,13 @@ const JournalPage = () => {
   }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login');
+      return;
+    }
     checkAuthAndFetchEntries();
-  }, [checkAuthAndFetchEntries]);
+  }, [checkAuthAndFetchEntries, router]);
 
   const fetchJournalEntries = async (token) => {
     try {

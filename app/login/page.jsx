@@ -79,6 +79,7 @@ export default function LoginPage() {
 
   return (
     <div className={styles.container}>
+      <h1 className={styles.title}>Login to Your Account</h1>
       {showModal && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
@@ -90,7 +91,6 @@ export default function LoginPage() {
           </div>
         </div>
       )}
-      <h1 className={styles.title}>Login to Your Account</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="email"

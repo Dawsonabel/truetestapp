@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from 'app/onboard/styles/onboard.module.css';
+import jwt from 'jsonwebtoken';
 
 function OnboardContent() {
   const [email, setEmail] = useState('');
@@ -12,52 +13,105 @@ function OnboardContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [paymentIntentId, setPaymentIntentId] = useState(null);
-  const [userId, setUserId] = useState(null);
-  const [name, setName] = useState('');
+  const [tokenData, setTokenData] = useState(null);
+  const [tokenError, setTokenError] = useState(null);
 
   useEffect(() => {
-    const initializePage = async () => {
-      // Update the parameter names to match the URL
-      const paymentId = searchParams.get('payment_intent');
-      const clientSecret = searchParams.get('payment_intent_client_secret');
-      const redirectStatus = searchParams.get('redirect_status');
-      
-      console.log('Payment Intent ID:', paymentId);
-      console.log('Client Secret:', clientSecret);
-      console.log('Redirect Status:', redirectStatus);
-
-      setPaymentIntentId(paymentId);
-
-      // Get userId from localStorage
-      const storedUserId = localStorage.getItem('userId');
-      if (storedUserId) {
-        setUserId(storedUserId);
-      }
-
-      // Initialize Netlify Identity
+    const verifyToken = async () => {
       try {
-        const { default: netlifyIdentity } = await import('netlify-identity-widget');
-        netlifyIdentity.init();
-      } catch (error) {
-        console.error('Failed to initialize Netlify Identity:', error);
-      }
+        const token = searchParams.get('token');
+        if (!token) {
+          setTokenError('No token provided');
+          return;
+        }
 
-      // Remove MongoDB connection attempt
-      setIsLoading(false);
+        // Send token to Netlify function for verification
+        const response = await fetch('/.netlify/functions/verify-token', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Token verification failed');
+        }
+
+        // Debug logs
+        console.log('Raw Token Data:', data.decoded);
+        console.log('Direct answers object:', data.decoded.answers);
+        console.log('Question 16 object:', data.decoded.answers['16']);
+        console.log('All quiz answers keys:', Object.keys(data.decoded.answers));
+        
+        // Log all token data
+        console.log('Raw Token Data:', data.decoded);
+        console.log('Payment Intent ID:', data.decoded.paymentIntentId);
+        console.log('Price:', data.decoded.price);
+        console.log('Email (q16):', data.decoded.answers?.q16);
+        console.log('All Quiz Answers:', data.decoded.answers);
+        console.log('Enneagram ID:', data.decoded.enneagramId);
+        console.log('Token Issue Time:', new Date(data.decoded.iat * 1000).toLocaleString());
+        console.log('Token Expiration:', new Date(data.decoded.exp * 1000).toLocaleString());
+
+        setTokenData(data.decoded);
+        
+        // Pre-fill email from answers[16].q16
+        if (data.decoded.answers['16']?.q16) {
+          setEmail(data.decoded.answers['16'].q16);
+        }
+      } catch (error) {
+        console.error('Token verification failed:', error);
+        setTokenError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    initializePage();
+    verifyToken();
   }, [searchParams]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
-    if (!email || !password || !name) {
-      setError('Please fill in all fields');
+    const userEmail = tokenData?.answers['16']?.q16 || email;
+    const userName = userEmail.split('@')[0];
+
+    if (!userEmail || !password) {
+      setError('Please enter both email and password');
       return;
     }
+
+    // Format quiz answers to ensure consistent structure
+    const formattedAnswers = {};
+    if (tokenData?.answers) {
+      Object.entries(tokenData.answers).forEach(([key, value]) => {
+        // Handle both formats (question-X and qX)
+        if (typeof value === 'object') {
+          formattedAnswers[key] = value;
+        } else {
+          formattedAnswers[key] = { [`question-${key}`]: value };
+        }
+      });
+    }
+
+    // Create the payload with formatted answers
+    const payload = {
+      email: userEmail.trim(),
+      password: password.trim(),
+      name: userName,
+      paymentIntentId: tokenData?.paymentIntentId,
+      userId: tokenData?.enneagramId,
+      quizAnswers: formattedAnswers, // Using formatted answers
+      price: tokenData?.price
+    };
+
+    // Add debug logs to verify data structure
+    console.log('Formatted quiz answers:', formattedAnswers);
+    console.log('Final payload:', payload);
 
     try {
       const response = await fetch('/.netlify/functions/create-user', {
@@ -65,98 +119,113 @@ function OnboardContent() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email,
-          password,
-          name,
-          paymentIntentId,
-          userId,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
 
+      // Debug log
+      console.log('Server response:', data);
+
       if (response.ok) {
-        console.log('User created:', data);
-        router.push('/dashboard'); // Redirect to dashboard after successful account creation
+        router.push('/dashboard');
       } else {
-        if (response.status === 400) {
-          if (data.message === 'User already exists') {
-            setError('An account with this email already exists. Please try logging in.');
-          } else {
-            setError(data.message || 'Invalid input. Please check your information and try again.');
-          }
-        } else {
-          setError('Failed to create account. Please try again later.');
-        }
-      } 
+        setError(data.message || 'Registration failed');
+      }
     } catch (error) {
       console.error('Error creating account:', error);
-      setError('An error occurred while creating your account. Please try again later.');
+      setError('An error occurred during registration');
     }
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.loadingSpinner}>
+          <svg viewBox="0 0 50 50" className={styles.spinner}>
+            <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" strokeWidth="4"/>
+          </svg>
+        </div>
+      </div>
+    );
   }
 
-  if (!paymentIntentId) {
+  if (tokenError) {
     return (
       <div className={styles.errorContainer}>
-        <p style={{ color: 'red', fontWeight: 'bold' }}>No payment found</p>
-        <p>Debug info:</p>
-        <p>Payment Intent ID: {paymentIntentId || 'Not found'}</p>
+        <div className={styles.glassCard}>
+          <svg className={styles.errorIcon} viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+          </svg>
+          <p className={styles.error}>Invalid or expired token</p>
+          <p>{tokenError}</p>
+        </div>
       </div>
     );
   }
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Create Your Account</h1>
-      <p>Payment Intent ID: {paymentIntentId}</p>
-      {userId && (
-        <p className="text-lg">
-          UUID: <span className="font-mono bg-gray-200 p-1 rounded">{userId}</span>
-        </p>
-      )}
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className={styles.input}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={styles.input}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={styles.input}
-          required
-        />
-        <button type="submit" className={styles.button}>
-          Create Account
-        </button>
-      </form>
-      {error && <p className={styles.error}>{error}</p>}
+      <div className={styles.successHeader}>
+        <svg className={styles.checkIcon} viewBox="0 0 24 24">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+        </svg>
+        <h2 className={styles.successText}>Success!</h2>
+      </div>
+      <div className={styles.glassCard}>
+        <h1 className={styles.title}>Complete Your Registration</h1>
+        {tokenData?.answers['16']?.q16 && (
+          <div className={styles.emailDisplay}>
+            <svg className={styles.userIcon} viewBox="0 0 24 24">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+            </svg>
+            <p>{tokenData.answers['16'].q16}</p>
+          </div>
+        )}
+        <form onSubmit={handleSubmit} className={styles.form}>
+          {!tokenData?.answers['16']?.q16 && (
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={styles.input}
+              required
+            />
+          )}
+          <input
+            type="password"
+            placeholder="Choose a password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.input}
+            required
+          />
+          <button type="submit" className={styles.button}>
+            Complete Registration
+          </button>
+        </form>
+        {error && (
+          <div className={styles.errorMessage}>
+            <svg className={styles.errorIcon} viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+            </svg>
+            <p>{error}</p>
+          </div>
+        )}
+      </div>
+      <p className={styles.supportNotice}>
+        Need to change your email or other issues?<br></br> Please contact support{' '}
+        <a href="mailto:hello@traitly.me" className={styles.supportEmail}>
+          hello@traitly.me
+        </a>
+      </p>
     </div>
   );
 }
 
 export default function Register() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <OnboardContent />
-    </Suspense>
+    <OnboardContent />
   );
 }
