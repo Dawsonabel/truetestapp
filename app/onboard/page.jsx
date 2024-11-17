@@ -1,17 +1,23 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from 'app/onboard/styles/onboard.module.css';
 import jwt from 'jsonwebtoken';
 
-function OnboardContent() {
+// Create a wrapper component that uses useSearchParams
+function OnboardContentWithParams() {
+  const searchParams = useSearchParams();
+  return <OnboardContent searchParams={searchParams} />;
+}
+
+// Modify OnboardContent to accept searchParams as a prop
+function OnboardContent({ searchParams }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const [tokenData, setTokenData] = useState(null);
   const [tokenError, setTokenError] = useState(null);
@@ -224,8 +230,11 @@ function OnboardContent() {
   );
 }
 
+// Update the default export to include Suspense
 export default function Register() {
   return (
-    <OnboardContent />
+    <Suspense fallback={<div>Loading...</div>}>
+      <OnboardContentWithParams />
+    </Suspense>
   );
 }
