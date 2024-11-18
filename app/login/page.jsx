@@ -40,36 +40,49 @@ export default function LoginPage() {
     checkLoginStatus();
   }, []);
 
-  // Load reCAPTCHA script
+  // Modified reCAPTCHA loading
   useEffect(() => {
     const loadRecaptcha = async () => {
       try {
+        // Wait to make sure window is defined
+        if (typeof window === 'undefined') return;
+
         // Remove existing script if any
         const existingScript = document.querySelector('script[src*="recaptcha"]');
         if (existingScript) {
           existingScript.remove();
         }
 
-        // Create new script element
+        // Create and append script element
         const script = document.createElement('script');
         script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
         script.id = 'recaptcha-script';
+        script.async = true;
+        script.defer = true;
         
         // Add error handling
         script.onerror = (error) => {
           console.error('Error loading reCAPTCHA:', error);
         };
 
-        // Wait for script to load
-        await new Promise((resolve, reject) => {
-          script.onload = resolve;
-          script.onerror = reject;
-          document.head.appendChild(script);
+        document.head.appendChild(script);
+
+        // Wait for grecaptcha to be available
+        await new Promise((resolve) => {
+          const checkRecaptcha = () => {
+            if (window.grecaptcha && window.grecaptcha.ready) {
+              resolve();
+            } else {
+              setTimeout(checkRecaptcha, 100);
+            }
+          };
+          checkRecaptcha();
         });
 
         // Initialize reCAPTCHA
-        await new Promise(resolve => window.grecaptcha?.ready(resolve));
-        console.log('reCAPTCHA initialized successfully');
+        window.grecaptcha.ready(() => {
+          console.log('reCAPTCHA initialized successfully');
+        });
       } catch (error) {
         console.error('Failed to load reCAPTCHA:', error);
       }
@@ -77,7 +90,6 @@ export default function LoginPage() {
 
     loadRecaptcha();
 
-    // Cleanup
     return () => {
       const script = document.getElementById('recaptcha-script');
       if (script) {
@@ -86,17 +98,16 @@ export default function LoginPage() {
     };
   }, []);
 
+  // Modified executeRecaptcha function
   const executeRecaptcha = async () => {
     try {
-      // Make sure grecaptcha is available
-      if (!window.grecaptcha) {
-        throw new Error('reCAPTCHA not loaded');
+      // Add delay to ensure reCAPTCHA is fully loaded
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      if (!window.grecaptcha || !window.grecaptcha.execute) {
+        throw new Error('reCAPTCHA not loaded properly');
       }
 
-      // Wait for reCAPTCHA to be ready
-      await new Promise(resolve => window.grecaptcha.ready(resolve));
-
-      // Execute reCAPTCHA with error handling
       const token = await window.grecaptcha.execute(
         process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
         { action: 'reset_password' }
@@ -109,7 +120,7 @@ export default function LoginPage() {
       return token;
     } catch (error) {
       console.error('reCAPTCHA execution error:', error);
-      throw new Error('Security verification failed');
+      throw error;
     }
   };
 
@@ -307,3 +318,4 @@ export default function LoginPage() {
     </div>
   );
 }
+ 
