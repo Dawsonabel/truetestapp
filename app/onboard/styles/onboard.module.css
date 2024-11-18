@@ -151,3 +151,94 @@
 .supportEmail:hover {
   text-decoration: underline;
 }
+
+.web3Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.web3ModalContent {
+  background: #1a1b1f;
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.web3ModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.web3ModalHeader h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #808080;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.web3Form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.web3Input {
+  background: #2c2d33;
+  border: 1px solid #3f3f46;
+  border-radius: 8px;
+  padding: 12px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.web3Button {
+  background: #3898ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.web3Button:hover {
+  background: #2d7acc;
+}
+
+.web3Message {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.success {
+  color: #10b981;
+}
+
+.error {
+  color: #ef4444;
+}

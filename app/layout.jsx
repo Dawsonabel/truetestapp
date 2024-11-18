@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 export default function RootLayout({ children }) {
     const pathname = usePathname();
 
-    const noLayoutPaths = ['/offer', '/payment', '/hello', '/onboard', '/affirmations'];
+    const noLayoutPaths = ['/offer', '/payment', '/hello', '/onboard', '/affirmations', '/reset-password'];
 
     const isNoLayoutPage = noLayoutPaths.includes(pathname);
 
