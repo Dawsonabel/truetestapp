@@ -101,26 +101,27 @@ export default function LoginPage() {
   // Modified executeRecaptcha function
   const executeRecaptcha = async () => {
     try {
-      // Add delay to ensure reCAPTCHA is fully loaded
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Increased delay to ensure reCAPTCHA is fully loaded
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
       if (!window.grecaptcha || !window.grecaptcha.execute) {
-        throw new Error('reCAPTCHA not loaded properly');
+        console.error('reCAPTCHA not loaded properly');
+        return null;
       }
+
+      // Add error logging for debugging
+      console.log('Attempting reCAPTCHA execution with site key:', process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
 
       const token = await window.grecaptcha.execute(
         process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-        { action: 'reset_password' }
+        { action: 'login' } // Changed action to be more specific
       );
 
-      if (!token) {
-        throw new Error('Failed to generate reCAPTCHA token');
-      }
-
+      console.log('reCAPTCHA token generated:', token ? 'success' : 'failed');
       return token;
     } catch (error) {
-      console.error('reCAPTCHA execution error:', error);
-      throw error;
+      console.error('Detailed reCAPTCHA execution error:', error);
+      return null;
     }
   };
 
