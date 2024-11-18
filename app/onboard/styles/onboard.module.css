@@ -101,13 +101,14 @@
 }
 
 .loadingSpinner {
-  width: 40px;
-  height: 40px;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
 }
 
 .spinner {
   animation: spin 1s linear infinite;
-  color: rgba(99, 102, 241, 0.9);
+  color: white;
 }
 
 @keyframes spin {
