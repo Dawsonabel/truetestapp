@@ -108,14 +108,16 @@ function OnboardContent({ searchParams }) {
 
       const data = await response.json();
 
-      if (response.ok) {
-        router.push('/dashboard');
-      } else {
-        setError(data.message || 'Registration failed');
+      if (!response.ok) {
+        // Log the full error response
+        console.error('Server error details:', data);
+        throw new Error(data.message || `Server error: ${response.status}`);
       }
+
+      router.push('/dashboard');
     } catch (error) {
-      console.error('Error creating account:', error);
-      setError('An error occurred during registration');
+      console.error('Registration error:', error);
+      setError(error.message || 'An error occurred during registration');
     }
   };
 

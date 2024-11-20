@@ -86,13 +86,13 @@ export default function Profile() {
   };
 
   const handleCancelSubscription = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      router.push('/login');
-      return;
-    }
-
     try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        router.push('/login');
+        return;
+      }
+
       const response = await fetch('/.netlify/functions/cancel-subscription', {
         method: 'POST',
         headers: {
@@ -103,17 +103,25 @@ export default function Profile() {
 
       const data = await response.json();
 
-      if (response.ok) {
-        alert(data.message); // Will show appropriate message for trial or paid subscription
-        setShowBillingModal(false);
-        // Refresh user data to show updated subscription status
-        fetchUserData();
-      } else {
-        alert(`Failed to cancel subscription: ${data.message}`);
+      if (!response.ok) {
+        console.error('Cancellation error:', data);
+        throw new Error(data.message || `Error: ${response.status}`);
       }
+
+      // Close modals and show success message
+      setShowBillingModal(false);
+      setShowCancelConfirmation(false);
+      setShowCancelWarning(false);
+      setShowExitSurvey(false);
+      setVerificationEmail('');
+      
+      // Refresh user data
+      await fetchUserData();
+      
+      alert('Subscription cancelled successfully');
     } catch (error) {
-      console.error('Error cancelling subscription:', error);
-      alert('An error occurred while cancelling your subscription.');
+      console.error('Subscription cancellation error:', error);
+      alert(error.message || 'An error occurred while cancelling your subscription');
     }
   };
 
