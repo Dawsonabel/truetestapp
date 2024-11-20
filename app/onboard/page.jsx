@@ -114,7 +114,7 @@ function OnboardContent({ searchParams }) {
         throw new Error(data.message || `Server error: ${response.status}`);
       }
 
-      router.push('/dashboard');
+      router.push('/login');
     } catch (error) {
       console.error('Registration error:', error);
       setError(error.message || 'An error occurred during registration');
