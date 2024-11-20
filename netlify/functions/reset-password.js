@@ -204,7 +204,9 @@ exports.handler = async (event, context) => {
       },
       tls: {
         rejectUnauthorized: false
-      }
+      },
+      debug: true,
+      logger: true
     });
 
     // Add verification step
@@ -220,18 +222,43 @@ exports.handler = async (event, context) => {
     const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
 
     // Send email
-    await transporter.sendMail({
-      from: process.env.SMTP_USER,
-      to: email,
-      subject: 'Password Reset Request',
-      html: `
-        <h1>Password Reset Request</h1>
-        <p>You requested a password reset. Click the link below to reset your password:</p>
-        <a href="${resetUrl}">Reset Password</a>
-        <p>This link will expire in 1 hour.</p>
-        <p>If you didn't request this, please ignore this email.</p>
-      `,
-    });
+    try {
+      console.log('Attempting to send email to:', email);
+      console.log('Reset URL:', resetUrl);
+      
+      const info = await transporter.sendMail({
+        from: `"Traitly Password Reset" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: 'Password Reset Request',
+        html: `
+          <h1>Password Reset Request</h1>
+          <p>You requested a password reset. Click the link below to reset your password:</p>
+          <a href="${resetUrl}">Reset Password</a>
+          <p>This link will expire in 1 hour.</p>
+          <p>If you didn't request this, please ignore this email.</p>
+        `,
+        text: `Password Reset Request\n\nYou requested a password reset. Click this link to reset your password: ${resetUrl}\n\nThis link will expire in 1 hour.\n\nIf you didn't request this, please ignore this email.`,
+      });
+
+      console.log('Email sending response:', {
+        messageId: info.messageId,
+        response: info.response,
+        accepted: info.accepted,
+        rejected: info.rejected
+      });
+
+      if (info.rejected && info.rejected.length > 0) {
+        throw new Error(`Email rejected for recipients: ${info.rejected.join(', ')}`);
+      }
+    } catch (error) {
+      console.error('Detailed email sending error:', {
+        error: error.message,
+        stack: error.stack,
+        code: error.code,
+        command: error.command
+      });
+      throw new Error(`Failed to send email: ${error.message}`);
+    }
 
     console.log('Reset email sent successfully');
     

@@ -12,6 +12,14 @@ export default function Profile() {
   const [newsletter, setNewsletter] = useState(false);
   const [showNewsletterModal, setShowNewsletterModal] = useState(false);
   const [showUserInfoModal, setShowUserInfoModal] = useState(false);
+  const [showBillingModal, setShowBillingModal] = useState(false);
+  const [showCancelConfirmation, setShowCancelConfirmation] = useState(false);
+  const [showCancelWarning, setShowCancelWarning] = useState(false);
+  const [showExitSurvey, setShowExitSurvey] = useState(false);
+  const [exitSurveyResponse, setExitSurveyResponse] = useState('');
+  const [verificationEmail, setVerificationEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [showEmailVerification, setShowEmailVerification] = useState(false);
   const router = useRouter();
 
   const fetchUserData = useCallback(async () => {
@@ -78,9 +86,70 @@ export default function Profile() {
 
   const handleNavigation = (path) => {
     if (path === 'billing') {
-      router.push(`/${path}`);
+      setShowBillingModal(true);
     } else {
       window.location.href = `https://traitly.me/${path}`;
+    }
+  };
+
+  const handleCancelSubscription = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+
+    try {
+      const response = await fetch('/.netlify/functions/cancel-subscription', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message); // Will show appropriate message for trial or paid subscription
+        setShowBillingModal(false);
+        // Refresh user data to show updated subscription status
+        fetchUserData();
+      } else {
+        alert(`Failed to cancel subscription: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error cancelling subscription:', error);
+      alert('An error occurred while cancelling your subscription.');
+    }
+  };
+
+  const verifyEmail = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+
+    try {
+      const response = await fetch('/.netlify/functions/verify-email', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: verificationEmail }),
+      });
+
+      if (response.ok) {
+        setEmailError('');
+        setShowEmailVerification(true);
+      } else {
+        setEmailError('Please enter the email associated with your account');
+      }
+    } catch (error) {
+      console.error('Error verifying email:', error);
+      setEmailError('An error occurred while verifying your email');
     }
   };
 
@@ -471,6 +540,251 @@ export default function Profile() {
                       >
                         Save
                       </button>
+                    </div>
+                  </div>
+                )}
+
+                {showBillingModal && (
+                  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                      {!showCancelConfirmation ? (
+                        // Initial view
+                        <>
+                          <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-semibold text-[#7081e6]">Subscription Status</h3>
+                            <button
+                              onClick={() => {
+                                setShowBillingModal(false);
+                                setShowCancelConfirmation(false);
+                                setShowCancelWarning(false);
+                                setShowExitSurvey(false);
+                                setExitSurveyResponse('');
+                              }}
+                              className="text-gray-400 hover:text-gray-500"
+                            >
+                              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
+                          
+                          <p className="text-center text-lg mb-6">Your subscription is active. Would you like to update it?</p>
+                          
+                          <div className="flex space-x-4">
+                            <button
+                              onClick={() => setShowBillingModal(false)}
+                              className="flex-1 bg-[#7081e6] text-white rounded-lg px-4 py-2 hover:bg-[#5b6bc7] transition-colors"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              onClick={() => setShowCancelConfirmation(true)}
+                              className="flex-1 bg-gray-200 text-gray-800 rounded-lg px-4 py-2 hover:bg-gray-300 transition-colors"
+                            >
+                              Yes
+                            </button>
+                          </div>
+                        </>
+                      ) : !showCancelWarning ? (
+                        // Warning view
+                        <>
+                          <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-semibold text-red-600">Warning</h3>
+                            <button
+                              onClick={() => {
+                                setShowBillingModal(false);
+                                setShowCancelConfirmation(false);
+                              }}
+                              className="text-gray-400 hover:text-gray-500"
+                            >
+                              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
+                          
+                          <div className="mb-6">
+                            <p className="text-center mb-4">
+                              By canceling your subscription, you will immediately lose access to:
+                            </p>
+                            <ul className="list-disc pl-6 mb-4">
+                              <li>Your Traitly.me account</li>
+                              <li>Your personality report</li>
+                              <li>All premium features</li>
+                            </ul>
+                            <p className="text-center text-red-600 font-semibold">
+                              This action cannot be undone.
+                            </p>
+                          </div>
+                          
+                          <div className="flex space-x-4">
+                            <button
+                              onClick={() => {
+                                setShowBillingModal(false);
+                                setShowCancelConfirmation(false);
+                                setShowCancelWarning(false);
+                                setShowExitSurvey(false);
+                                setExitSurveyResponse('');
+                              }}
+                              className="flex-1 bg-gray-200 text-gray-800 rounded-lg px-4 py-2 hover:bg-gray-300 transition-colors"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              onClick={() => setShowCancelWarning(true)}
+                              className="flex-1 bg-red-600 text-white rounded-lg px-4 py-2 hover:bg-red-700 transition-colors"
+                            >
+                              Next
+                            </button>
+                          </div>
+                        </>
+                      ) : !showExitSurvey ? (
+                        // Feedback view
+                        <>
+                          <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-semibold text-[#7081e6]">Quick Feedback</h3>
+                            <button
+                              onClick={() => {
+                                setShowBillingModal(false);
+                                setShowCancelConfirmation(false);
+                                setShowCancelWarning(false);
+                              }}
+                              className="text-gray-400 hover:text-gray-500"
+                            >
+                              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
+                          
+                          <div className="mb-6">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Why are you canceling your membership?
+                            </label>
+                            <textarea
+                              value={exitSurveyResponse}
+                              onChange={(e) => setExitSurveyResponse(e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#7081e6]"
+                              rows="4"
+                            />
+                          </div>
+                          
+                          <div className="flex space-x-4">
+                            <button
+                              onClick={() => setShowCancelWarning(false)}
+                              className="flex-1 bg-gray-200 text-gray-800 rounded-lg px-4 py-2 hover:bg-gray-300 transition-colors"
+                            >
+                              Back
+                            </button>
+                            <button
+                              onClick={() => {
+                                setShowExitSurvey(true);
+                                setShowEmailVerification(false);
+                              }}
+                              className="flex-1 bg-red-600 text-white rounded-lg px-4 py-2 hover:bg-red-700 transition-colors"
+                            >
+                              Continue
+                            </button>
+                          </div>
+                        </>
+                      ) : !showEmailVerification ? (
+                        // Email Verification step
+                        <>
+                          <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-semibold text-[#7081e6]">Verify Email</h3>
+                            <button
+                              onClick={() => {
+                                setShowBillingModal(false);
+                                setShowCancelConfirmation(false);
+                                setShowCancelWarning(false);
+                                setVerificationEmail('');
+                                setEmailError('');
+                              }}
+                              className="text-gray-400 hover:text-gray-500"
+                            >
+                              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
+                          
+                          <div className="mb-6">
+                            <p className="text-center mb-4">
+                              To confirm cancellation, please enter your account email address:
+                            </p>
+                            <input
+                              type="email"
+                              value={verificationEmail}
+                              onChange={(e) => setVerificationEmail(e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#7081e6]"
+                              placeholder="Enter your email"
+                            />
+                            {emailError && (
+                              <p className="text-red-500 text-sm mt-2">{emailError}</p>
+                            )}
+                          </div>
+                          
+                          <div className="flex space-x-4">
+                            <button
+                              onClick={() => {
+                                setShowExitSurvey(false);
+                                setVerificationEmail('');
+                                setEmailError('');
+                              }}
+                              className="flex-1 bg-gray-200 text-gray-800 rounded-lg px-4 py-2 hover:bg-gray-300 transition-colors"
+                            >
+                              Back
+                            </button>
+                            <button
+                              onClick={verifyEmail}
+                              className="flex-1 bg-red-600 text-white rounded-lg px-4 py-2 hover:bg-red-700 transition-colors"
+                            >
+                              Verify & Continue
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        // Final cancellation view
+                        <>
+                          <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-semibold text-red-600">Cancel Subscription</h3>
+                            <button
+                              onClick={() => {
+                                setShowBillingModal(false);
+                                setShowCancelConfirmation(false);
+                                setShowCancelWarning(false);
+                                setShowExitSurvey(false);
+                                setVerificationEmail('');
+                              }}
+                              className="text-gray-400 hover:text-gray-500"
+                            >
+                              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
+                          
+                          <p className="text-center mb-6">Are you sure you want to cancel your subscription?</p>
+                          
+                          <div className="flex space-x-4">
+                            <button
+                              onClick={() => {
+                                setVerificationEmail('');
+                                setEmailError('');
+                              }}
+                              className="flex-1 bg-gray-200 text-gray-800 rounded-lg px-4 py-2 hover:bg-gray-300 transition-colors"
+                            >
+                              Back
+                            </button>
+                            <button
+                              onClick={handleCancelSubscription}
+                              className="flex-1 bg-red-600 text-white rounded-lg px-4 py-2 hover:bg-red-700 transition-colors"
+                            >
+                              Cancel Subscription
+                            </button>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 )}

@@ -1,5 +1,6 @@
 const { MongoClient, ObjectId } = require('mongodb');
 const jwt = require('jsonwebtoken');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const mongoClient = new MongoClient(process.env.MONGODB_URI);
 
@@ -82,7 +83,29 @@ exports.handler = async (event, context) => {
 
     console.log('User found:', user);
 
-    // Return user data
+    let subscriptionData = null;
+    if (user.stripeCustomerId) {
+      try {
+        const customer = await stripe.customers.retrieve(user.stripeCustomerId, {
+          expand: ['subscriptions.data'],
+        });
+
+        if (customer.subscriptions?.data?.[0]) {
+          const subscription = customer.subscriptions.data[0];
+          subscriptionData = {
+            plan: subscription.plan.nickname || subscription.plan.id,
+            nextBillingDate: new Date(subscription.current_period_end * 1000),
+            amount: `$${(subscription.plan.amount / 100).toFixed(2)}`,
+            status: subscription.status,
+          };
+        }
+      } catch (error) {
+        console.error('Error fetching Stripe subscription:', error);
+        // Don't throw error, just log it and continue with null subscription data
+      }
+    }
+
+    // Return user data with subscription info
     return {
       statusCode: 200,
       headers,
@@ -90,9 +113,7 @@ exports.handler = async (event, context) => {
         email: user.email,
         name: user.name,
         createdAt: user.createdAt,
-        stripeCustomerId: user.stripeCustomerId,
-        paymentIntentId: user.paymentIntentId,
-        userId: user.userId,
+        subscription: subscriptionData,
       }),
     };
   } catch (error) {

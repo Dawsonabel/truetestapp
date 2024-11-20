@@ -1,7 +1,8 @@
 .pageContainer {
-    max-width: 800px;
+    max-width: 500px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0 2rem;
+    width: 100%;
   }
   
   .headerContainer {
@@ -23,11 +24,8 @@
   }
   
   .resultsCard {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    overflow-x: hidden;
   }
   
   .subtitle {
@@ -35,15 +33,6 @@
     color: #494854;
     margin-bottom: 1.5rem;
     text-align: center;
-  }
-  
-  .descriptionCard,
-  .strengthsCard,
-  .growthCard {
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
   }
   
   .descriptionCard h3,
@@ -134,4 +123,329 @@
       stroke-dasharray: 90, 150;
       stroke-dashoffset: -124;
     }
+  }
+  
+  .typeScores {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem 0;
+  }
+  
+  .typeScoreRow {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+    gap: 1rem;
+  }
+  
+  .scoreBar {
+    flex: 1;
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .scoreBarFill {
+    height: 100%;
+    background-color: #ff93b6;
+    transition: width 0.3s ease;
+  }
+  
+  .chartsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .resultContainer {
+    text-align: center;
+    padding: 0.15rem;
+    margin: 2rem 2rem 0 2rem;
+    position: relative;
+  }
+  
+  .resultContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+  }
+  
+  .resultLabel {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #494854;
+    font-weight: 500;
+  }
+  
+  .resultValue {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #000000, #585858);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  .typeName {
+    font-size: 1.5rem;
+    color: #494854;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .resultContent {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid rgba(126, 109, 109, 0.417);
+    border-radius: 16px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .typeImage {
+    max-width: 200px;
+    height: auto;
+  }
+  
+  .resultsTitle {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-align: left;
+  }
+  
+  .resultContent {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 226, 226, 0.442);
+    padding: 1rem;
+    border-radius: 16px;
+  }
+  
+  .typeImage {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+  }
+  
+  .typeDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .mainType {
+    color: #FF5757;
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+  
+  .typeNumber {
+    color: #FF5757;
+  }
+  
+  .subType, .subTypes {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .label {
+    color: #333;
+  }
+  
+  .icon {
+    width: 16px;
+    height: 16px;
+    color: #494854;
+  }
+  
+  .traitCardsContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    width: 100%;
+  }
+  
+  .traitCard {
+    flex: 1;
+    padding: 0.25rem;
+    border-radius: 12px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .traitName {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+    min-height: 3.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .traitPercentage {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  /* Specific trait card styles */
+  .discipline {
+    background-color: rgba(255, 182, 193, 0.2); /* Pastel pink */
+    border: 2px solid rgba(255, 182, 193, 0.9);
+  }
+  
+  .control {
+    background-color: rgba(173, 216, 230, 0.2); /* Pastel blue */
+    border: 2px solid rgba(173, 216, 230, 0.9);
+  }
+  
+  .selfExpression {
+    background-color: rgba(144, 238, 144, 0.2); /* Pastel green */
+    border: 2px solid rgba(144, 238, 144, 0.9);
+  }
+  
+  /* Add new trait card colors */
+  .emotionProcessing {
+    background-color: rgba(255, 218, 185, 0.2); /* Peach */
+    border: 2px solid rgba(255, 218, 185, 0.9);
+  }
+  
+  .empathy {
+    background-color: rgba(221, 160, 221, 0.2); /* Plum */
+    border: 2px solid rgba(221, 160, 221, 0.9);
+  }
+  
+  .knowledgeSeeking {
+    background-color: rgba(176, 224, 230, 0.2); /* Powder blue */
+    border: 2px solid rgba(176, 224, 230, 0.9);
+  }
+  
+  /* Add styles for other traits... */
+  
+  /* Add spacing between trait card rows */
+  .traitCardsContainer + .traitCardsContainer {
+    margin-top: 1rem;
+  }
+  
+  /* Add these new trait card styles */
+  .ambition {
+    background-color: rgba(255, 192, 203, 0.2); /* Light pink */
+    border: 2px solid rgba(255, 192, 203, 0.9);
+  }
+  
+  .confidence {
+    background-color: rgba(255, 215, 0, 0.2); /* Gold */
+    border: 2px solid rgba(255, 215, 0, 0.9);
+  }
+  
+  .security {
+    background-color: rgba(152, 251, 152, 0.2); /* Pale green */
+    border: 2px solid rgba(152, 251, 152, 0.9);
+  }
+  
+  .adaptability {
+    background-color: rgba(135, 206, 235, 0.2); /* Sky blue */
+    border: 2px solid rgba(135, 206, 235, 0.9);
+  }
+  
+  .resilience {
+    background-color: rgba(147, 112, 219, 0.2); /* Purple */
+    border: 2px solid rgba(147, 112, 219, 0.9);
+  }
+  
+  .harmonySeeking {
+    background-color: rgba(255, 182, 193, 0.2); /* Light coral */
+    border: 2px solid rgba(255, 182, 193, 0.9);
+  }
+  
+  .resultsContainer {
+    position: relative;
+  }
+  
+  .shadowOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 85vh;  /* Increased from 85vh to 150vh for much more coverage */
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(253, 240, 230, 0.6) 5%,
+      rgba(253, 240, 230, 0.65) 10%,
+      rgba(253, 240, 230, 0.8) 15%,
+      rgba(253, 240, 230, 0.95) 20%,
+      rgba(253, 240, 230, 1) 30%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .lockedResultsContainer {
+    margin-top: -18rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 -8px 16px -4px rgba(0, 0, 0, 0.1),
+                0 -4px 8px -4px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 2;
+    margin-bottom: 2rem;
+  }
+  
+  .lockedContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .lockIcon {
+    width: 48px;
+    height: 48px;
+    color: #666;
+  }
+  
+  .lockedContent h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  .lockedContent p {
+    color: #666;
+    margin: 0;
+    max-width: 400px;
+  }
+  
+  .loadingIcon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
   }
