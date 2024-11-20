@@ -31,7 +31,6 @@ function OnboardContent({ searchParams }) {
           return;
         }
 
-        // Send token to Netlify function for verification
         const response = await fetch('/.netlify/functions/verify-token', {
           method: 'POST',
           headers: {
@@ -46,25 +45,8 @@ function OnboardContent({ searchParams }) {
           throw new Error(data.message || 'Token verification failed');
         }
 
-        // Debug logs
-        console.log('Raw Token Data:', data.decoded);
-        console.log('Direct answers object:', data.decoded.answers);
-        console.log('Question 16 object:', data.decoded.answers['16']);
-        console.log('All quiz answers keys:', Object.keys(data.decoded.answers));
-        
-        // Log all token data
-        console.log('Raw Token Data:', data.decoded);
-        console.log('Payment Intent ID:', data.decoded.paymentIntentId);
-        console.log('Price:', data.decoded.price);
-        console.log('Email (q16):', data.decoded.answers?.q16);
-        console.log('All Quiz Answers:', data.decoded.answers);
-        console.log('Enneagram ID:', data.decoded.enneagramId);
-        console.log('Token Issue Time:', new Date(data.decoded.iat * 1000).toLocaleString());
-        console.log('Token Expiration:', new Date(data.decoded.exp * 1000).toLocaleString());
-
         setTokenData(data.decoded);
         
-        // Pre-fill email from answers[16].q16
         if (data.decoded.answers['16']?.q16) {
           setEmail(data.decoded.answers['16'].q16);
         }
@@ -111,13 +93,9 @@ function OnboardContent({ searchParams }) {
       name: userName,
       paymentIntentId: tokenData?.paymentIntentId,
       userId: tokenData?.enneagramId,
-      quizAnswers: formattedAnswers, // Using formatted answers
+      quizAnswers: formattedAnswers,
       price: tokenData?.price
     };
-
-    // Add debug logs to verify data structure
-    console.log('Formatted quiz answers:', formattedAnswers);
-    console.log('Final payload:', payload);
 
     try {
       const response = await fetch('/.netlify/functions/create-user', {
@@ -129,9 +107,6 @@ function OnboardContent({ searchParams }) {
       });
 
       const data = await response.json();
-
-      // Debug log
-      console.log('Server response:', data);
 
       if (response.ok) {
         router.push('/dashboard');

@@ -23,16 +23,13 @@ export default function Profile() {
   const router = useRouter();
 
   const fetchUserData = useCallback(async () => {
-    console.log('fetchUserData called');
     const token = localStorage.getItem('token');
-    console.log('Token retrieved from localStorage:', token);
     if (!token) {
       router.push('/login');
       return;
     }
 
     try {
-      console.log('Fetching user data...');
       const response = await fetch('/.netlify/functions/user-profile', {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -40,7 +37,6 @@ export default function Profile() {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log('Fetched user data:', data);
         setUserData(data);
         setName(data.name || '');
         setNewsletter(data.newsletter || false);
@@ -65,21 +61,18 @@ export default function Profile() {
   const handleNameSubmit = async (e) => {
     e.preventDefault();
     // TODO: Implement API call to update name
-    console.log('Saving name:', name);
     setUserData(prev => ({ ...prev, name }));
   };
 
   const handlePasscodeSubmit = async (e) => {
     e.preventDefault();
     // TODO: Implement API call to set passcode
-    console.log('Saving passcode:', passcode);
     setPasscode('');
   };
 
   const handleNewsletterToggle = async () => {
     // TODO: Implement API call to update newsletter preference
     const newValue = !newsletter;
-    console.log('Toggling newsletter subscription:', newValue);
     setNewsletter(newValue);
     setUserData(prev => ({ ...prev, newsletter: newValue }));
   };
@@ -251,7 +244,10 @@ export default function Profile() {
               {/* Reports Section */}
               <section className="bg-white rounded-lg p-2 mb-8 shadow-md w-full max-w-2xl">              
                 {/* Personality Report */}
-                <div className="bg-white rounded-lg p-1 flex items-center justify-between">
+                <div 
+                  className="bg-white rounded-lg p-1 flex items-center justify-between cursor-pointer"
+                  onClick={() => handleNavigation('results')}
+                >
                   <div className="flex items-center w-full">
                     <div className="w-12 h-12 bg-blue-100 rounded-lg overflow-hidden mr-4 flex-shrink-0 flex items-center justify-center">
                       <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -262,7 +258,7 @@ export default function Profile() {
                     </div>
                     <div className="flex-grow">
                       <h3 className="text-lg font-semibold text-gray-700">Personality</h3>
-                      <p className="text-sm text-gray-500">{userData?.personalityReport || 'No personality report available'}</p>
+                      <p className="text-sm text-gray-500">View your report</p>
                       <div className="mt-4 flex justify-end">
                         <div className="w-5/6 border-b border-gray-200"></div>
                       </div>

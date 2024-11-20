@@ -44,30 +44,25 @@ export default function LoginPage() {
   useEffect(() => {
     const loadRecaptcha = async () => {
       try {
-        // Wait to make sure window is defined
         if (typeof window === 'undefined') return;
 
-        // Remove existing script if any
         const existingScript = document.querySelector('script[src*="recaptcha"]');
         if (existingScript) {
           existingScript.remove();
         }
 
-        // Create and append script element
         const script = document.createElement('script');
         script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
         script.id = 'recaptcha-script';
         script.async = true;
         script.defer = true;
         
-        // Add error handling
         script.onerror = (error) => {
           console.error('Error loading reCAPTCHA:', error);
         };
 
         document.head.appendChild(script);
 
-        // Wait for grecaptcha to be available
         await new Promise((resolve) => {
           const checkRecaptcha = () => {
             if (window.grecaptcha && window.grecaptcha.ready) {
@@ -79,10 +74,7 @@ export default function LoginPage() {
           checkRecaptcha();
         });
 
-        // Initialize reCAPTCHA
-        window.grecaptcha.ready(() => {
-          console.log('reCAPTCHA initialized successfully');
-        });
+        window.grecaptcha.ready(() => {});
       } catch (error) {
         console.error('Failed to load reCAPTCHA:', error);
       }
@@ -101,7 +93,6 @@ export default function LoginPage() {
   // Modified executeRecaptcha function
   const executeRecaptcha = async () => {
     try {
-      // Increased delay to ensure reCAPTCHA is fully loaded
       await new Promise(resolve => setTimeout(resolve, 2000));
 
       if (!window.grecaptcha || !window.grecaptcha.execute) {
@@ -109,15 +100,11 @@ export default function LoginPage() {
         return null;
       }
 
-      // Add error logging for debugging
-      console.log('Attempting reCAPTCHA execution with site key:', process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
-
       const token = await window.grecaptcha.execute(
         process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-        { action: 'login' } // Changed action to be more specific
+        { action: 'login' }
       );
 
-      console.log('reCAPTCHA token generated:', token ? 'success' : 'failed');
       return token;
     } catch (error) {
       console.error('Detailed reCAPTCHA execution error:', error);

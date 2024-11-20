@@ -35,7 +35,6 @@ export default function ChatPage() {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
-          console.log('No token found');
           return;
         }
 
@@ -53,7 +52,6 @@ export default function ChatPage() {
         }
 
         const entries = await response.json();
-        console.log('Fetched entries:', entries);
 
         if (entries && entries.length > 0) {
           const contextSummary = entries.map(entry => `
@@ -63,8 +61,6 @@ export default function ChatPage() {
           `).join('\n\n');
 
           setJournalContext(contextSummary);
-        } else {
-          console.log('No journal entries found');
         }
       } catch (error) {
         console.error('Error in fetchJournalContext:', error);
@@ -132,7 +128,7 @@ export default function ChatPage() {
               fullResponse += content;
               setCurrentStreamingMessage(fullResponse);
             } catch (error) {
-              console.log('Error parsing JSON:', error);
+              console.error('Error parsing JSON:', error);
             }
           }
         }
@@ -197,7 +193,7 @@ export default function ChatPage() {
               fullResponse += content;
               setCurrentStreamingMessage(fullResponse);
             } catch (error) {
-              console.log('Error parsing JSON:', error);
+              console.error('Error parsing JSON:', error);
             }
           }
         }
