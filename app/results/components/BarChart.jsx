@@ -2,6 +2,9 @@ import { Bar } from 'react-chartjs-2';
 import styles from 'app/results/styles/barChart.module.css';
 
 const BarChart = ({ data }) => {
+  // Get the maximum value from the dataset
+  const maxValue = Math.max(...data.datasets[0].data);
+  
   return (
     <div className={styles.chartWrapper}>
       <Bar 
@@ -16,11 +19,11 @@ const BarChart = ({ data }) => {
               },
               ticks: {
                 callback: function(value) {
-                  return `${(value / 5 * 100).toFixed(0)}%`;
+                  return `${(value / maxValue * 100).toFixed(0)}%`;
                 },
-                count: 2
+                count: 6
               },
-              max: 5
+              max: maxValue
             },
             x: {
               grid: {
