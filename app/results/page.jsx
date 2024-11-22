@@ -399,7 +399,7 @@ const ResultsPage = () => {
       <div className={styles.resultsContainer}>
         {results?.rawAnswers && (
           <div className={styles.resultContainer}>
-            <h1 className={styles.resultsTitle}>Your Results</h1>
+            <h1 className={styles.resultsTitle}>TRAITLY.ME</h1>
             <div className={styles.resultContent}>
               <img 
                 src={`/images/results/type${determineTypes(calculateTypeScores(results.rawAnswers)).mainType}.png`}

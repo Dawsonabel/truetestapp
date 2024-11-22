@@ -224,11 +224,11 @@
   }
   
   .resultsTitle {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-weight: 800;
     color: #333;
     margin-bottom: 0.5rem;
-    font-weight: 500;
-    text-align: left;
+    text-align: center;
   }
   
   .resultContent {
