@@ -50,6 +50,24 @@ function OnboardContent({ searchParams }) {
         if (data.decoded.answers['16']?.q16) {
           setEmail(data.decoded.answers['16'].q16);
         }
+
+        // Fire Twitter conversion event with actual data
+        if (window.twq) {
+          console.log('Firing Twitter conversion event with data:', {
+            value: data.decoded?.price || 0,
+            currency: 'USD',
+            email_address: data.decoded.answers['16']?.q16 || ''
+          });
+          
+          window.twq('event', 'tw-osome-osomf', {
+            value: data.decoded?.price || 0,
+            currency: 'USD',
+            email_address: data.decoded.answers['16']?.q16 || ''
+          });
+        } else {
+          console.log('Twitter pixel not loaded yet');
+        }
+
       } catch (error) {
         console.error('Token verification failed:', error);
         setTokenError(error.message);
@@ -109,9 +127,17 @@ function OnboardContent({ searchParams }) {
       const data = await response.json();
 
       if (!response.ok) {
-        // Log the full error response
         console.error('Server error details:', data);
         throw new Error(data.message || `Server error: ${response.status}`);
+      }
+
+      // Twitter conversion tracking event code - exactly as provided by Twitter
+      if (window.twq) {
+        window.twq('event', 'tw-osome-osomf', {
+          value: tokenData?.price || null,
+          currency: 'USD',
+          email_address: userEmail || null
+        });
       }
 
       router.push('/login');

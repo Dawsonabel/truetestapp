@@ -37,6 +37,32 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
+                {/* Twitter conversion tracking base code */}
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+                            },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+                            a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+                            twq('config','osome');
+
+                            // Add event listener for when the script is loaded
+                            window.addEventListener('load', function() {
+                                console.log('Window loaded, checking for twq');
+                                if (window.twq && window.location.pathname === '/onboard') {
+                                    console.log('Firing Twitter conversion event');
+                                    window.twq('event', 'tw-osome-osomf', {
+                                        value: 0,
+                                        currency: 'USD',
+                                        email_address: ''
+                                    });
+                                }
+                            });
+                        `
+                    }}
+                />
+                {/* End Twitter conversion tracking base code */}
+                
                 {pathname === '/onboard' && (
                     <noscript>
                         <img height="1" width="1" style={{ display: 'none' }}
