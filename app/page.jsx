@@ -78,10 +78,10 @@ const HomePage = () => {
           className={styles.resultsImage}
         />
         <p className={styles.testType}>
-          Enneagram Personality Report
+          IQ & Intelligence Report
         </p>
         <p className={styles.cardSubtext}>
-          View your full personality report and test results
+          View your full IQ and intelligence test results
         </p>
         <button 
           className={styles.seeResultsButton}

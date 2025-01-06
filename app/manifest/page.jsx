@@ -100,7 +100,7 @@ export default function DailyAffirmations() {
       <div className="affirmation-container">
         <div className="affirmation-wrapper" style={{backgroundImage: theme.backgroundStyle.backgroundImage}}>
           <div className="personalized-text">
-            <p>Shaped by your personality report</p>
+            <p>Shaped by your intelligence report</p>
           </div>
           <div className="affirmation-content">
             <div className="affirmation-text">

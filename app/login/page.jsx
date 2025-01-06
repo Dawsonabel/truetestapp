@@ -137,7 +137,7 @@ export default function LoginPage() {
         return;
       }
 
-      const response = await fetch('/.netlify/functions/login-user', {
+      const response = await fetch('http://localhost:8888/.netlify/functions/login-user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

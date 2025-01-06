@@ -2,8 +2,25 @@ const { MongoClient } = require('mongodb');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
+const cors = require('cors');
 
 exports.handler = async (event, context) => {
+  // CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': 'http://localhost:3001',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+  };
+
+  // Handle preflight requests
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: ''
+    };
+  }
+
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
@@ -89,6 +106,7 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify({
         message: 'Login successful',
         token,
@@ -98,9 +116,10 @@ exports.handler = async (event, context) => {
       }),
     };
   } catch (error) {
-    return { 
-      statusCode: 500, 
-      body: JSON.stringify({ message: 'Internal server error' }) 
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ message: error.message })
     };
   } finally {
     await client.close();

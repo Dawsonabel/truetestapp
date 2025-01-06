@@ -14,50 +14,49 @@ const verifyToken = (token) => {
 };
 
 exports.handler = async (event, context) => {
-  // Enable CORS
   const headers = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'http://localhost:3001',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS'
   };
 
-  // Handle preflight request
+  // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
       headers,
-      body: '',
-    };
-  }
-
-  console.log('Received request:', event);
-
-  // Check for Authorization header
-  const authHeader = event.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    console.log('No valid Authorization header found');
-    return {
-      statusCode: 401,
-      headers,
-      body: JSON.stringify({ message: 'Unauthorized' }),
-    };
-  }
-
-  const token = authHeader.split(' ')[1];
-  console.log('Received token:', token);
-  
-  const decodedToken = verifyToken(token);
-  console.log('Decoded token:', decodedToken);
-
-  if (!decodedToken) {
-    return {
-      statusCode: 401,
-      headers,
-      body: JSON.stringify({ message: 'Invalid token' }),
+      body: ''
     };
   }
 
   try {
+    console.log('Received request:', event);
+
+    // Check for Authorization header
+    const authHeader = event.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      console.log('No valid Authorization header found');
+      return {
+        statusCode: 401,
+        headers,
+        body: JSON.stringify({ message: 'Unauthorized' }),
+      };
+    }
+
+    const token = authHeader.split(' ')[1];
+    console.log('Received token:', token);
+    
+    const decodedToken = verifyToken(token);
+    console.log('Decoded token:', decodedToken);
+
+    if (!decodedToken) {
+      return {
+        statusCode: 401,
+        headers,
+        body: JSON.stringify({ message: 'Invalid token' }),
+      };
+    }
+
     console.log('Attempting to connect to MongoDB...');
     await mongoClient.connect();
     console.log('Connected to MongoDB');

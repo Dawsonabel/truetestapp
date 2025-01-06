@@ -45,24 +45,25 @@ function OnboardContent({ searchParams }) {
           throw new Error(data.message || 'Token verification failed');
         }
 
-        setTokenData(data.decoded);
+        setTokenData({
+          answers: data.decoded.answers,
+          price: data.decoded.price,
+          email: data.decoded.answers['16']?.q16
+        });
         
-        if (data.decoded.answers['16']?.q16) {
-          setEmail(data.decoded.answers['16'].q16);
-        }
+        setEmail(data.decoded.answers['16']?.q16);
 
-        // Fire Twitter conversion event with actual data
         if (window.twq) {
           console.log('Firing Twitter conversion event with data:', {
-            value: data.decoded?.price || 0,
+            value: data.decoded.price,
             currency: 'USD',
-            email_address: data.decoded.answers['16']?.q16 || ''
+            email_address: data.decoded.answers['16']?.q16
           });
           
           window.twq('event', 'tw-osome-osomf', {
-            value: data.decoded?.price || 0,
+            value: data.decoded.price,
             currency: 'USD',
-            email_address: data.decoded.answers['16']?.q16 || ''
+            email_address: data.decoded.answers['16']?.q16
           });
         } else {
           console.log('Twitter pixel not loaded yet');
@@ -83,7 +84,7 @@ function OnboardContent({ searchParams }) {
     e.preventDefault();
     setError('');
 
-    const userEmail = tokenData?.answers['16']?.q16 || email;
+    const userEmail = trueemail || email;
     const userName = userEmail.split('@')[0];
 
     if (!userEmail || !password) {
@@ -91,28 +92,15 @@ function OnboardContent({ searchParams }) {
       return;
     }
 
-    // Format quiz answers to ensure consistent structure
-    const formattedAnswers = {};
-    if (tokenData?.answers) {
-      Object.entries(tokenData.answers).forEach(([key, value]) => {
-        // Handle both formats (question-X and qX)
-        if (typeof value === 'object') {
-          formattedAnswers[key] = value;
-        } else {
-          formattedAnswers[key] = { [`question-${key}`]: value };
-        }
-      });
-    }
-
-    // Create the payload with formatted answers
+    // Create the payload with the new data structure
     const payload = {
       email: userEmail.trim(),
       password: password.trim(),
       name: userName,
       paymentIntentId: tokenData?.paymentIntentId,
       userId: tokenData?.enneagramId,
-      quizAnswers: formattedAnswers,
-      price: tokenData?.price
+      quizAnswers: trueanswers,
+      price: trueprice
     };
 
     try {

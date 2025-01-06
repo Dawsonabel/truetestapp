@@ -30,7 +30,7 @@ export default function Profile() {
     }
 
     try {
-      const response = await fetch('/.netlify/functions/user-profile', {
+      const response = await fetch('http://localhost:8888/.netlify/functions/user-profile', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -81,7 +81,7 @@ export default function Profile() {
     if (path === 'billing') {
       setShowBillingModal(true);
     } else {
-      window.location.href = `https://traitly.me/${path}`;
+      window.location.href = `https://truetest.pro/${path}`;
     }
   };
 
@@ -251,7 +251,7 @@ export default function Profile() {
 
               {/* Reports Section */}
               <section className="bg-white rounded-lg p-2 mb-8 shadow-md w-full max-w-2xl">              
-                {/* Personality Report */}
+                {/* IQ & Intelligence Report */}
                 <div 
                   className="bg-white rounded-lg p-1 flex items-center justify-between cursor-pointer"
                   onClick={() => handleNavigation('results')}
@@ -265,7 +265,7 @@ export default function Profile() {
                       </svg>
                     </div>
                     <div className="flex-grow">
-                      <h3 className="text-lg font-semibold text-gray-700">Personality</h3>
+                      <h3 className="text-lg font-semibold text-gray-700">IQ & Intelligence</h3>
                       <p className="text-sm text-gray-500">View your report</p>
                       <div className="mt-4 flex justify-end">
                         <div className="w-5/6 border-b border-gray-200"></div>
@@ -612,8 +612,8 @@ export default function Profile() {
                               By canceling your subscription, you will immediately lose access to:
                             </p>
                             <ul className="list-disc pl-6 mb-4">
-                              <li>Your Traitly.me account</li>
-                              <li>Your personality report</li>
+                              <li>Your TrueTest account</li>
+                              <li>Your IQ and intelligence report</li>
                               <li>All premium features</li>
                             </ul>
                             <p className="text-center text-red-600 font-semibold">
