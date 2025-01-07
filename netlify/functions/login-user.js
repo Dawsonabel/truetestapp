@@ -5,12 +5,23 @@ const axios = require('axios');
 const cors = require('cors');
 
 exports.handler = async (event, context) => {
-  // CORS headers
+  const allowedOrigins = [
+    'https://app.truetest.pro',
+    'https://www.truetest.pro',
+    'http://localhost:3001'
+  ];
+
+  const origin = event.headers.origin;
   const headers = {
-    'Access-Control-Allow-Origin': 'http://localhost:3001',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Credentials': 'true'
   };
+
+  // Only add the Origin if it's in our allowlist
+  if (allowedOrigins.includes(origin)) {
+    headers['Access-Control-Allow-Origin'] = origin;
+  }
 
   // Handle preflight requests
   if (event.httpMethod === 'OPTIONS') {

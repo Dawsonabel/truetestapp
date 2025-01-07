@@ -71,7 +71,7 @@ const HomePage = () => {
       </div>
       <div className={styles.resultsCard}>
         <img 
-          src="/images/test.png"
+          src="/images/test.webp"
           alt="Test Results Icon"
           width={120}
           height={120}

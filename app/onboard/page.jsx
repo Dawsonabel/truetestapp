@@ -48,22 +48,23 @@ function OnboardContent({ searchParams }) {
         setTokenData({
           answers: data.decoded.answers,
           price: data.decoded.price,
-          email: data.decoded.answers['16']?.q16
+          email: data.decoded.email,
+          paymentIntentId: data.decoded.paymentIntentId
         });
         
-        setEmail(data.decoded.answers['16']?.q16);
+        setEmail(data.decoded.email);
 
         if (window.twq) {
           console.log('Firing Twitter conversion event with data:', {
             value: data.decoded.price,
             currency: 'USD',
-            email_address: data.decoded.answers['16']?.q16
+            email_address: data.decoded.email
           });
           
           window.twq('event', 'tw-osome-osomf', {
             value: data.decoded.price,
             currency: 'USD',
-            email_address: data.decoded.answers['16']?.q16
+            email_address: data.decoded.email
           });
         } else {
           console.log('Twitter pixel not loaded yet');
@@ -84,7 +85,7 @@ function OnboardContent({ searchParams }) {
     e.preventDefault();
     setError('');
 
-    const userEmail = trueemail || email;
+    const userEmail = tokenData?.email || email;
     const userName = userEmail.split('@')[0];
 
     if (!userEmail || !password) {
@@ -92,15 +93,14 @@ function OnboardContent({ searchParams }) {
       return;
     }
 
-    // Create the payload with the new data structure
+    // Create the payload with the correct payment intent ID from token
     const payload = {
       email: userEmail.trim(),
       password: password.trim(),
       name: userName,
       paymentIntentId: tokenData?.paymentIntentId,
-      userId: tokenData?.enneagramId,
-      quizAnswers: trueanswers,
-      price: trueprice
+      quizAnswers: tokenData?.answers,
+      price: tokenData?.price
     };
 
     try {
@@ -213,8 +213,8 @@ function OnboardContent({ searchParams }) {
       </div>
       <p className={styles.supportNotice}>
         Need to change your email or other issues?<br></br> Please contact support{' '}
-        <a href="mailto:hello@traitly.me" className={styles.supportEmail}>
-          hello@traitly.me
+        <a href="mailto:info@truetest.pro" className={styles.supportEmail}>
+          info@truetest.pro
         </a>
       </p>
     </div>

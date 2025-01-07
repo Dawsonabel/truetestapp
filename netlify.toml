@@ -21,3 +21,8 @@
   to = "/"
   status = 301
   force = true
+
+[dev]
+framework = "next"
+targetPort = 3000
+port = 8888
