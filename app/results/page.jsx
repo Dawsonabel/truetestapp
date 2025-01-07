@@ -266,11 +266,11 @@ export default function Results() {
 
       <div className="flex flex-col gap-2">
         <div className="text-center bg-zinc-900/5 dark:bg-zinc-100/5 backdrop-blur-sm px-6 py-3 rounded-2xl">
-          <p className="text-zinc-600 dark:text-zinc-300 font-medium mb-2 text-xl">
+          <p className="text-zinc-600 dark:text-zinc-300 font-medium mb-2 text-lg">
             Your IQ is in the top <span className="inline-block bg-blue-500/10 px-2 rounded-lg text-black">{calculatePercentile(iqScore).toFixed(1)}%</span>
           </p>
-          <p className="text-zinc-600 dark:text-zinc-300 font-medium text-xl">
-            You&apos;re smarter than <span className="inline-block bg-blue-500/10 px-2 rounded-lg text-black">{(100 - calculatePercentile(iqScore)).toFixed(1)}%</span> <br />of people
+          <p className="text-zinc-600 dark:text-zinc-300 font-medium text-lg">
+            You&apos;re smarter than <span className="inline-block bg-blue-500/10 px-2 rounded-lg text-black">{(100 - calculatePercentile(iqScore)).toFixed(1)}%</span> of people
           </p>
         </div>
 
