@@ -181,11 +181,11 @@ export default function Results() {
                     100 * Math.exp(-Math.pow((x - 100) / 15, 2) / 2) : 
                     null;
                 }),
-                borderColor: 'rgb(59, 130, 246)',
-                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                borderColor: 'rgb(0, 149, 255)',
+                backgroundColor: 'rgba(0, 149, 255, 1)',
                 fill: {
                   target: 'origin',
-                  above: 'rgba(59, 130, 246, 0.2)'
+                  above: 'rgba(0, 149, 255, 0.15)'
                 },
                 tension: 0.4,
                 pointRadius: 0,
@@ -200,7 +200,7 @@ export default function Results() {
                     null;
                 }),
                 borderColor: 'transparent',
-                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                backgroundColor: 'rgba(0, 149, 255, 0.15)',
                 fill: true,
                 tension: 0.4,
                 pointRadius: 0,
